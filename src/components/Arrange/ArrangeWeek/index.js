@@ -70,8 +70,9 @@ export default function ArrangeWeek(props) {
         let newWeek = {...week};
         let item = newWeek.items.find(item => item[0] === event.currentTarget.dataset.id);
         let day = event.currentTarget.dataset.day;
-        if (closed > 0) {
-            if (item[1][day] > 0) item[1][day] = (item[1][day] === 1 ? 100 : 1);
+        if (props.isThisWeek) {
+            item[1][day] = (item[1][day] === 0 ? 1 : item[1][day] === 1 ? 100 : item[1][day] === 100 ? 0 : null);
+            console.log(item[1])
         } else {
             item[1][day] = (item[1][day] > 0 ? 0 : 1);
         }
@@ -113,6 +114,7 @@ export default function ArrangeWeek(props) {
                                 number={item.number}
                                 color={item.color}
                                 todo={item.todo}
+                                isThisWeek={props.isThisWeek}
                                 weekBeginning={props.weekBeginning}
                                 onRemoveItem={removeItemFromWeek}
                                 onChangeDay={changeDay}

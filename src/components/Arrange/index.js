@@ -14,26 +14,20 @@ export default function Arrange(props) {
                 Arrange
             </h1>
             <ArrangeWeek
+                key={'thisWeek'}
+                weekName={'This Week'}
+                days={days}
+                items={items}
+                weekBeginning={props.thisWeekBeginning}
+                isThisWeek={true}
+            />
+            <ArrangeWeek
                 key={'nextWeek'}
                 weekName={'Next Week'}
                 days={days}
                 items={items}
                 weekBeginning={props.nextWeekBeginning}
                 thisWeekBeginning={props.thisWeekBeginning}
-                // onAddAllItemsToWeek={props.onAddAllItemsToWeek}
-                // onCopyAllFromThisWeek={props.onCopyAllFromThisWeek}
-                // onMoveItemInWeek={props.onMoveItemInWeek}
-                // onRemoveItemFromWeek={props.onRemoveItemFromWeek}
-            />
-            <ArrangeWeek
-                key={'thisWeek'}
-                weekName={'This Week'}
-                days={days}
-                items={items}
-                weekBeginning={props.thisWeekBeginning}
-                // onAddAllItemsToWeek={props.onAddAllItemsToWeek}
-                // onMoveItemInWeek={props.onMoveItemInWeek}
-                // onRemoveItemFromWeek={props.onRemoveItemFromWeek}
             />
         </main>
     );

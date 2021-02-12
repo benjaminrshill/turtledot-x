@@ -1,13 +1,13 @@
 import React from 'react';
-import cutNumber from "../../functions/cutNumber";
+import cutNumber from '../../functions/cutNumber';
 
-export default function DoRow(props: any) {
+export default function DoRow(props) {
 
-    const currentNumber = props.todo.reduce((a: number, b: number) => a + b, 0);
+    const currentNumber = props.todo.reduce((a, b) => a + b, 0);
     const allBoolDone = currentNumber >= +props.number * 100;
     const allCountDone = currentNumber !== 0 && currentNumber % 100 === 0;
     let countedNumber = 0;
-    props.todo.forEach((day: number) => day > 0 ? countedNumber++ : null);
+    props.todo.forEach(day => day > 0 ? countedNumber++ : null);
     const goalNum = cutNumber(props.number / countedNumber);
     const originalDay = new Date().getDay();
     const today = originalDay === 0 ? 6 : originalDay - 1;
@@ -24,7 +24,7 @@ export default function DoRow(props: any) {
             <td className={'main-cell week-item-number'}>
                 {cutNumber(props.number)}
             </td>
-            {props.todo.map((day: number, i: number) =>
+            {props.todo.map((day, i) =>
                 <td
                     key={props.id + i}
                     id={props.id}
