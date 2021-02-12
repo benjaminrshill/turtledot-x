@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import cutNumber from '../../functions/cutNumber';
 
-export default function Row(props: any) {
+export default function Row(props) {
 
-    const [editing, switchEdit] = useState(false);
     const [row, editRow] = useState({
         onesAndZeroes: '',
         currentNumber: '',
@@ -13,13 +12,11 @@ export default function Row(props: any) {
         goalNum: ''
     });
 
-    useEffect(() => {
-        doNumbers();
-    }, [props]);
+    useEffect(() => doNumbers(), [props]);
 
     function doNumbers() {
-        const onesAndZeroes = props.todo.map((n: number) => n = (n >= 1 ? 1 : 0));
-        const currentNumber = onesAndZeroes.reduce((a: number, b: number) => a + b, 0);
+        const onesAndZeroes = props.todo.map(n => n = (n >= 1 ? 1 : 0));
+        const currentNumber = onesAndZeroes.reduce((a, b) => a + b, 0);
         const tooHigh = currentNumber > +props.number;
         const tooLow = currentNumber < +props.number;
         const cutNum = cutNumber(props.number);
@@ -62,10 +59,10 @@ export default function Row(props: any) {
                 + (props.type && (row.tooHigh ? ' week-number-arrow-down' : row.tooLow ? ' week-number-arrow-up' : ''))}>
                 {row.cutNum}
             </td>
-            {props.todo.map((day: number, i: number) =>
+            {props.todo.map((day, i) =>
                 <td
-                    key={props.id + i}
-                    id={props.id}
+                    key={i + props.id + props.weekBeginning}
+                    data-id={props.id}
                     data-item={props.index}
                     data-day={i}
                     data-week={props.weekBeginning}

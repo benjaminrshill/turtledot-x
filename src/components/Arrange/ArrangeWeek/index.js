@@ -12,11 +12,12 @@ export default function ArrangeWeek(props) {
 
     useEffect(() => createWeek(), [week]);
 
-    function createWeek() {
+    async function createWeek() {
         let createSelected = [];
         let createUnselected = [...props.items];
-        if (week) {
-            week.items.forEach(item => {
+        let newWeek = await JSON.parse(localStorage.getItem(props.weekBeginning));
+        if (newWeek) {
+            newWeek.items.forEach(item => {
                 let index = createUnselected.findIndex(uItem => uItem.id === item[0]);
                 if (index > -1) {
                     let moveItem = createUnselected.splice(index, 1);
@@ -65,26 +66,18 @@ export default function ArrangeWeek(props) {
         }
     }
 
-    // function changeDay(event: MouseEvent, closed = 0) {
-    //     let week = [...selected],
-    //         item = event.currentTarget.dataset.item,
-    //         day = event.currentTarget.dataset.day;
-    //     if (closed > 0) {
-    //         if (week[item].todo[day] > 0) week[item].todo[day] = (week[item].todo[day] === 1 ? 100 : 1);
-    //     } else {
-    //         week[item].todo[day] = (week[item].todo[day] > 0 ? 0 : 1);
-    //     }
-    //     editSelected([...week]);
-    //     props.onStoreDay(props.weekBeginning, event.currentTarget.id, week[item].todo);
-    // }
-
-    // function storeDay(weekBeginning: string, itemId: string, todo: Array<number>, closed = 0) {
-    //     let newWeeks = [...weeks];
-    //     let week = newWeeks.find(needle => needle.date === weekBeginning);
-    //     let item = week.items.find(item => item[0] === itemId);
-    //     item[1] = todo;
-    //     localStorage.setItem('weeks', JSON.stringify(weeks));
-    // }
+    function changeDay(event, closed = 0) {
+        let newWeek = {...week};
+        let item = newWeek.items.find(item => item[0] === event.currentTarget.dataset.id);
+        let day = event.currentTarget.dataset.day;
+        if (closed > 0) {
+            if (item[1][day] > 0) item[1][day] = (item[1][day] === 1 ? 100 : 1);
+        } else {
+            item[1][day] = (item[1][day] > 0 ? 0 : 1);
+        }
+        localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
+        editWeek({...newWeek});
+    }
 
     return (
         <div className='week'>
@@ -99,7 +92,6 @@ export default function ArrangeWeek(props) {
                             {props.weekBeginning}
                         </td>
                         <td className='week-date'>
-
                         </td>
                         {props.days.map((day, i) =>
                             <td
@@ -122,12 +114,12 @@ export default function ArrangeWeek(props) {
                                 color={item.color}
                                 todo={item.todo}
                                 weekBeginning={props.weekBeginning}
-                                // onChangeDay={changeDay}
+                                onRemoveItem={removeItemFromWeek}
+                                onChangeDay={changeDay}
                                 // onDragStart={onDragStart}
                                 // onDragOver={onDragOver}
                                 // onDragLeave={onDragLeave}
                                 // onDrop={onDrop}
-                                onRemoveItem={removeItemFromWeek}
                             />
                         )}
                     </tbody>
