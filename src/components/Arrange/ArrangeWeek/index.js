@@ -14,14 +14,14 @@ export default function ArrangeWeek(props) {
 
     function createWeek() {
         let createSelected = [];
-        let createUnselected = [...unselected];
+        let createUnselected = [...props.items];
         if (week) {
-            week.items.forEach(week => {
-                let index = createUnselected.findIndex(item => item.id === week.date);
+            week.items.forEach(item => {
+                let index = createUnselected.findIndex(uItem => uItem.id === item[0]);
                 if (index > -1) {
-                    let item = createUnselected.splice(index, 1);
-                    item[0].todo = week.items;
-                    createSelected.push(item[0]);
+                    let moveItem = createUnselected.splice(index, 1);
+                    moveItem[0].todo = item[1];
+                    createSelected.push(moveItem[0]);
                 }
             });
         }
@@ -30,18 +30,39 @@ export default function ArrangeWeek(props) {
     }
 
     function addItemToWeek(event) {
-        let newWeek;
-        if (week) {
-            newWeek = {...week};
-            newWeek.items.push([event.target.value, [0,0,0,0,0,0,0]]);
-        } else {
-            newWeek = {
-                date: event.target.dataset.week,
-                items: [[event.target.value, [0,0,0,0,0,0,0]]]
-            }
-        }
+        let newWeek = {...week};
+        if (!newWeek) newWeek = {date: props.weekBeginning, items: []};
+        newWeek.items.push([event.target.value, [0,0,0,0,0,0,0]]);
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
+    }
+
+    function addAllItemsToWeek() {
+        let ids = [];
+        let newWeek = {...week};
+        unselected.forEach(item => ids.push(item.id));
+        if (!newWeek) newWeek = {date: props.weekBeginning, items: []};
+        ids.forEach(id => newWeek.items.push([id, [0,0,0,0,0,0,0]]));
+        localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
+        editWeek({...newWeek});
+    }
+
+    function removeItemFromWeek(event) {
+        let newWeek = {...week};
+        newWeek.items = newWeek.items.filter(needle => needle[0] !== event.target.value);
+        localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
+        editWeek({...newWeek});
+    }
+
+    function copyAllFromThisWeek () {
+        if (localStorage.getItem(props.thisWeekBeginning)) {
+            let newWeek = {...week};
+            let thisWeek = JSON.parse(localStorage.getItem(props.thisWeekBeginning));
+            if (!newWeek) newWeek = {date: props.weekBeginning, items: []};
+            newWeek.items = [...thisWeek.items];
+            localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
+            editWeek({...newWeek});
+        }
     }
 
     // function changeDay(event: MouseEvent, closed = 0) {
@@ -106,7 +127,7 @@ export default function ArrangeWeek(props) {
                                 // onDragOver={onDragOver}
                                 // onDragLeave={onDragLeave}
                                 // onDrop={onDrop}
-                                // onRemoveItem={removeItem}
+                                onRemoveItem={removeItemFromWeek}
                             />
                         )}
                     </tbody>
@@ -117,14 +138,14 @@ export default function ArrangeWeek(props) {
                     {selected.length < 1 && props.weekName === 'Next Week' &&
                         <button
                             className='addAllItems copy'
-                            // onClick={copyAllItems}
+                            onClick={copyAllFromThisWeek}
                         >
                             copy schedule from this week
                         </button>
                     }
                     <button
                         className='addAllItems'
-                        // onClick={addAllItems}
+                        onClick={addAllItemsToWeek}
                     >
                         add all items
                     </button>

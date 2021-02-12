@@ -19,6 +19,7 @@ export default function Arrange(props) {
                 days={days}
                 items={items}
                 weekBeginning={props.nextWeekBeginning}
+                thisWeekBeginning={props.thisWeekBeginning}
                 // onAddAllItemsToWeek={props.onAddAllItemsToWeek}
                 // onCopyAllFromThisWeek={props.onCopyAllFromThisWeek}
                 // onMoveItemInWeek={props.onMoveItemInWeek}
