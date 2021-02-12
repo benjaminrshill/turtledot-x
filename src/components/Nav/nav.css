@@ -1,0 +1,56 @@
+nav {
+    display: flex;
+    justify-content: space-evenly;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--high-color);
+    box-shadow: 0 -5px 10px 0 rgba(0, 104, 14, 0.2);
+}
+
+a {
+    color: var(--line-color);
+    text-decoration: none;
+}
+
+.menu-item {
+    width: 20vw;
+    height: auto;
+    border: none;
+}
+
+.menu-icon {
+    font-size: 5rem;
+    line-height: 5rem;
+    font-weight: 300;
+    border-radius: 100%;
+}
+
+.menu-icon span {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    background: #c1c1c1;
+    border-radius: 100%;
+}
+
+.menu-icon span.menu-icon-doit {
+    background: var(--line-color);
+}
+
+.menu-text {
+    font-size: 1.5rem;
+    line-height: 5rem;
+    text-transform: uppercase;
+}
+
+
+.here {
+    color: #1dff75;
+}
+
+.menu-item.here .menu-icon span {
+    background: #1dff75;
+    border-color: #1dff75;
+}

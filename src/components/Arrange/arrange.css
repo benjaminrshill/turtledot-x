@@ -1,0 +1,10 @@
+.addAllItems {
+    width: 100%;
+    color: var(--base-color);
+    background: var(--line-color);
+    border-radius: 0;
+}
+
+.addAllItems.copy {
+    background: #240050;
+}

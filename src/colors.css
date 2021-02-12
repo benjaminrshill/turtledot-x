@@ -1,0 +1,52 @@
+html {
+    --color0: #FFD951;
+    --color1: #32DAFF;
+    --color2: #3BF384;
+    --color3: #F19FFF;
+    --color4: #AE92FF;
+    --color5: #FFFFFF;
+    --color6: #9C9C9C;
+    --color7: #FF9900;
+    --color8: #5e6eff;
+    --color9: #D46A83;
+}
+
+.color0 {
+    background: var(--color0);
+}
+
+.color1 {
+    background: var(--color1);
+}
+
+.color2 {
+    background: var(--color2);
+}
+
+.color3 {
+    background: var(--color3);
+}
+
+.color4 {
+    background: var(--color4);
+}
+
+.color5 {
+    background: var(--color5);
+}
+
+.color6 {
+    background: var(--color6);
+}
+
+.color7 {
+    background: var(--color7);
+}
+
+.color8 {
+    background: var(--color8);
+}
+
+.color9 {
+    background: var(--color9);
+}

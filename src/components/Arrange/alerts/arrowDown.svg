@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   width="300mm"
+   height="300mm"
+   viewBox="0 0 300 300"
+   version="1.1"
+   id="svg4615">
+  <defs
+     id="defs4609" />
+  <metadata
+     id="metadata4612">
+  </metadata>
+  <g
+     id="layer1"
+     transform="matrix(1,0,0,0.33849707,9.7192403,16.845793)"
+     style="fill:#ffffff;fill-opacity:1">
+    <path
+       style="opacity:0.5;fill:#ffffff;fill-opacity:1;stroke-width:0.31645808"
+       id="path902"
+       d="M 290.05965,49.766434 H 140.28076 L -9.4981314,49.766433 65.391314,-79.94589 140.28076,-209.65822 215.17021,-79.945894 Z"
+       transform="scale(1,-1)" />
+  </g>
+</svg>
