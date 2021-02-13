@@ -1,5 +1,6 @@
 import React from 'react';
-import ArrangeWeek from '../Arrange/ArrangeWeek';
+import ArchiveWeek from './ArchiveWeek';
+import {days} from '../../static/colors';
 import '../../weeks.css';
 
 export default function Archive(props) {
@@ -18,13 +19,10 @@ export default function Archive(props) {
                 Archive
             </h1>
             {archive.map((week, i) =>
-                <ArrangeWeek
+                <ArchiveWeek
                     key={'archiveWeek' + i}
-                    weekName={''}
-                    weekBeginning={week.date}
                     week={week}
-                    archive={true}
-                    editable={false}
+                    days={days}
                 />
             )}
         </main>

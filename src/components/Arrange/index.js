@@ -7,6 +7,22 @@ import './arrange.css';
 export default function Arrange(props) {
 
     const items = JSON.parse(localStorage.getItem('items'));
+    const thisWeekBeginning = getWeekBeginning();
+    const nextWeekBeginning = getWeekBeginning(7);
+
+    function getWeekBeginning(addWeek = 0) {
+        let newDate = new Date(),
+            day = newDate.getDay();
+        function padZero(n){ return n < 10 ? '0' + n : n}
+        if (day > 1) {
+            newDate.setDate(newDate.getDate() - day + 1 + addWeek);
+        } else if (day === 0) {
+            newDate.setDate(newDate.getDate() - 6 + addWeek);
+        } else {
+            newDate.setDate(newDate.getDate() + addWeek);
+        }
+        return newDate.getFullYear() + '/' + padZero(newDate.getMonth() + 1) + '/' + padZero(newDate.getDate());
+    }
 
     return (
         <main id='arrange'>
@@ -15,7 +31,7 @@ export default function Arrange(props) {
                 weekName={'This Week'}
                 days={days}
                 items={items}
-                weekBeginning={props.thisWeekBeginning}
+                weekBeginning={thisWeekBeginning}
                 isThisWeek={true}
             />
             <ArrangeWeek
@@ -23,8 +39,8 @@ export default function Arrange(props) {
                 weekName={'Next Week'}
                 days={days}
                 items={items}
-                weekBeginning={props.nextWeekBeginning}
-                thisWeekBeginning={props.thisWeekBeginning}
+                weekBeginning={nextWeekBeginning}
+                thisWeekBeginning={thisWeekBeginning}
             />
         </main>
     );

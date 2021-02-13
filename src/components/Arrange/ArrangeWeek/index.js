@@ -71,13 +71,34 @@ export default function ArrangeWeek(props) {
         let item = newWeek.items.find(item => item[0] === event.currentTarget.dataset.id);
         let day = event.currentTarget.dataset.day;
         if (props.isThisWeek) {
-            item[1][day] = (item[1][day] === 0 ? 1 : item[1][day] === 1 ? 100 : item[1][day] === 100 ? 0 : null);
-            console.log(item[1])
+            item[1][day] = (item[1][day] === 0 ? 1 : item[1][day] === 1 ? 100 : 0);
         } else {
             item[1][day] = (item[1][day] > 0 ? 0 : 1);
         }
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
+        if (props.isThisWeek) updateArchive();
+    }
+
+    function updateArchive() {
+        let archive = [];
+        let thisWeek = {
+            date: props.weekBeginning,
+            items: [...selected]
+        };
+        if (localStorage.getItem('archive')) {
+            archive = JSON.parse(localStorage.getItem('archive'));
+            let index = archive.findIndex(week => week.date === props.weekBeginning);
+            if (index !== -1) {
+                archive[index] = thisWeek;
+            } else {
+                archive.unshift(thisWeek);
+            }
+        } else {
+            archive.unshift(thisWeek);
+        }
+        console.log(archive)
+        localStorage.setItem('archive', JSON.stringify(archive));
     }
 
     return (
