@@ -91,7 +91,7 @@ td {
     background: rgba(255,255,255,0.5);
 }
 
-.allDone, .allDone .week-spots {
+.allDone, .allDone .week-spots, .allDone input {
     color: var(--high-color);
     background: var(--line-color);
 }

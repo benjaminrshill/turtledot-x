@@ -21,14 +21,14 @@ export default function Index(props) {
     useEffect(() => doNumbers(), [props]);
 
     function doNumbers() {
-        let numberToDo = 0;
-        props.todo.forEach(day => day > -1 ? numberToDo++ : null);
-        const currentTotal = props.todo.reduce((a, b) => a + b, 0);
+        let numberToDo = [];
+        props.todo.forEach(day => day > -1 ? numberToDo.push(+day) : null);
+        const currentTotal = numberToDo.reduce((a, b) => a + b, 0);
         const allDone = currentTotal >= +props.number;
         const tooHigh = numberToDo > +props.number;
         const tooLow = numberToDo < +props.number;
-        const cutNum = cutNumber(props.number);
-        const goalNum = cutNumber(props.number / numberToDo);
+        const cutNum = cutNumber(+props.number);
+        const goalNum = cutNumber(+props.number - currentTotal);
         const originalDay = new Date().getDay();
         const today = originalDay === 0 ? 6 : originalDay - 1;
         editRow({
@@ -88,7 +88,7 @@ export default function Index(props) {
             </td>
             <td className={'main-cell week-item-number'
                 + (props.type && (row.tooHigh ? ' week-number-arrow-down' : row.tooLow ? ' week-number-arrow-up' : ''))}>
-                {row.cutNum}
+                {row.goalNum > -1 ? row.goalNum : props.number}
             </td>
             {todo.map((day, i) =>
                 <td
@@ -106,7 +106,7 @@ export default function Index(props) {
                             data-item={props.index}
                             data-day={i}
                             data-week={props.weekBeginning}
-                            value={day}
+                            value={day > -1 ? day : ''}
                             className={'type-cell' + (day === 1 ? ' grey' : '')}
                             onChange={handleNumber}
                             onBlur={saveTodo}

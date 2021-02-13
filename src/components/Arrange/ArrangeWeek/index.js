@@ -10,12 +10,13 @@ export default function ArrangeWeek(props) {
     const [unselected, editUnselected] = useState(JSON.parse(localStorage.getItem('items')));
     const [selected, editSelected] = useState([]);
 
-    useEffect(() => createWeek(), [week]);
+    useEffect(() => {
+        createWeek();
+    }, [week]);
 
     async function createWeek() {
-        console.log(unselected);
         let createSelected = [];
-        let createUnselected = [...unselected];
+        let createUnselected = JSON.parse(localStorage.getItem('items'));
         let newWeek = await JSON.parse(localStorage.getItem(props.weekBeginning));
         if (newWeek) {
             newWeek.items.forEach(item => {
@@ -33,7 +34,9 @@ export default function ArrangeWeek(props) {
 
     function addItemToWeek(event) {
         let newWeek = {...week};
-        if (!newWeek) newWeek = {date: props.weekBeginning, items: []};
+        console.log(newWeek)
+        if (newWeek.items === undefined) newWeek = {date: props.weekBeginning, items: []};
+        console.log(newWeek)
         newWeek.items.push([event.target.value, [-1, -1, -1, -1, -1, -1, -1]]);
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
@@ -43,7 +46,7 @@ export default function ArrangeWeek(props) {
         let ids = [];
         let newWeek = {...week};
         unselected.forEach(item => ids.push(item.id));
-        if (!newWeek) newWeek = {date: props.weekBeginning, items: []};
+        if (newWeek.items === undefined) newWeek = {date: props.weekBeginning, items: []};
         ids.forEach(id => newWeek.items.push([id, [-1, -1, -1, -1, -1, -1, -1]]));
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
@@ -69,8 +72,8 @@ export default function ArrangeWeek(props) {
 
     function changeDay(event) {
         let newWeek = {...week};
-        let item = newWeek.items.find(item => item[0] === event.target.dataset.id);
-        let day = event.target.dataset.day;
+        let item = newWeek.items.find(item => item[0] === event.currentTarget.dataset.id);
+        let day = event.currentTarget.dataset.day;
         if (props.isThisWeek) {
             item[1][day] = (item[1][day] === (-1) ? 0 : item[1][day] === 0 ? 1 : (-1));
         } else {
@@ -82,9 +85,9 @@ export default function ArrangeWeek(props) {
 
     function saveTodo(event) {
         let newWeek = {...week};
-        let item = newWeek.items.find(item => item[0] === event.target.dataset.id);
-        let day = event.target.dataset.day;
-        item[1][day] = +event.target.value;
+        let item = newWeek.items.find(item => item[0] === event.currentTarget.dataset.id);
+        let day = event.currentTarget.dataset.day;
+        item[1][day] = event.target.value;
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
     }
