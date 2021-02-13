@@ -1,7 +1,7 @@
 import React from 'react';
 import ArchiveWeek from './ArchiveWeek';
 import {days} from '../../static/colors';
-import '../../weeks.css';
+import '../../components/Arrange/arrange.css';
 
 export default function Archive(props) {
 

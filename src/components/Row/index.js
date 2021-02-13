@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import cutNumber from '../../functions/cutNumber';
+import './row.css';
 
-export default function Row(props) {
+export default function Index(props) {
 
+    const [todo, editTodo] = useState([...props.todo]);
+    const [editing, switchEditing] = useState(false);
     const [row, editRow] = useState({
         onesAndZeroes: '',
         currentNumber: '',
@@ -17,17 +20,17 @@ export default function Row(props) {
         today: 0
     });
 
+    useEffect(() => editTodo([...props.todo]), [props]);
     useEffect(() => doNumbers(), [props]);
 
-    let countedNumber = 0;
-    props.todo.forEach(day => day > 0 ? countedNumber++ : null);
-
     function doNumbers() {
+        let countedNumber = 0;
+        props.todo.forEach(day => day > 0 ? countedNumber++ : null);
         const onesAndZeroes = props.todo.map(n => n = (n >= 1 ? 1 : 0));
         const currentNumber = onesAndZeroes.reduce((a, b) => a + b, 0);
         const currentDone = props.todo.reduce((a, b) => a + b, 0);
         const allBoolDone = currentDone >= +props.number * 100;
-        const allCountDone = currentDone !== 0 && currentDone % 100 === 0;
+        const allCountDone = currentDone >= currentDone;
         const tooHigh = currentNumber > +props.number;
         const tooLow = currentNumber < +props.number;
         const cutNum = cutNumber(props.number);
@@ -49,9 +52,21 @@ export default function Row(props) {
         });
     }
 
+    function handleNumber(event) {
+        if (validateTodo(event.target.value)) {
+            let newTodo = [...todo];
+            newTodo[event.target.dataset.day] = event.target.value;
+            editTodo([...newTodo]);
+        }
+    }
+
+    function validateTodo(day) {
+        return day < 100000;
+    }
+
     return (
         <tr
-            draggable={true}
+            draggable={!props.archive}
             id={props.id + props.weekBeginning}
             data-index={props.index}
             data-dragid={props.id}
@@ -65,34 +80,50 @@ export default function Row(props) {
             <td
                 id={props.id}
                 className='week-item left-column'>
-                <button
-                    value={props.id}
-                    onClick={props.onRemoveItem}
-                    className='week-item-delete'>
-                    &mdash;
-                </button>
+                {!props.archive &&
+                    <button
+                        value={props.id}
+                        onClick={props.onRemoveItem}
+                        className='week-item-delete'>
+                        &mdash;
+                    </button>
+                }
                 {props.text}
             </td>
             <td className={'main-cell week-item-number'
                 + (props.type && (row.tooHigh ? ' week-number-arrow-down' : row.tooLow ? ' week-number-arrow-up' : ''))}>
                 {row.cutNum}
             </td>
-            {props.todo.map((day, i) =>
+            {todo.map((day, i) =>
                 <td
                     key={i + props.id + props.weekBeginning}
                     data-id={props.id}
                     data-item={props.index}
                     data-day={i}
                     data-week={props.weekBeginning}
-                    onClick={props.onChangeDay}
+                    onClick={props.type ? props.onChangeDay : () => switchEditing(true)}
                     className={'main-cell week-spots' + (props.isThisWeek && row.today === i ? props.color : '')}>
-                    <div
-                        className={props.type ?
-                            ('spot' + (day === 100 ? ' closed' : day === 1 ? ' open' : ''))
-                            :
-                            ('type-cell' + (day === 1 ? ' grey' : ''))}>
-                        {!props.type && day > 0 ? row.goalNum : ''}
-                    </div>
+                    {editing ?
+                        <input
+                            type='number'
+                            data-id={props.id}
+                            data-item={props.index}
+                            data-day={i}
+                            data-week={props.weekBeginning}
+                            value={day > 0 ? day : ''}
+                            className={'type-cell' + (day === 1 ? ' grey' : '')}
+                            onChange={handleNumber}
+                            onBlur={() => props.onSaveTodo(todo)}
+                        />
+                        :
+                        <div
+                            className={props.type ?
+                                ('spot' + (day === 100 ? ' closed' : day === 1 ? ' open' : ''))
+                                :
+                                ('type-cell' + (day === 1 ? ' grey' : ''))}>
+                            {!props.type && day > 0 ? (props.isThisWeek ? day : row.goalNum) : ''}
+                        </div>
+                    }
                 </td>
             )}
         </tr>

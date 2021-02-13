@@ -1,9 +1,9 @@
 import React from 'react';
-import Row from '../../Table/Row';
+import Index from '../../Row';
 import '../../Arrange/arrange.css';
 
 export default function ArchiveWeek(props) {
-
+console.log(props.week)
     return (
         <div className='week'>
             <section>
@@ -24,20 +24,23 @@ export default function ArchiveWeek(props) {
                         )}
                     </tr>
                     </thead>
-                    <tbody data-dragweek={props.week.date}>
-                    {props.week.items.map((item, i) =>
-                        <Row
-                            key={item.id + props.week.date}
-                            id={item.id}
-                            index={i}
-                            text={item.text}
-                            type={item.type}
-                            number={item.number}
-                            color={item.color}
-                            todo={item.todo}
-                            weekBeginning={props.week.date}
-                        />
-                    )}
+                    <tbody>
+                        {props.week.items.map((item, i) =>
+                            <Index
+                                key={item.id + props.week.date}
+                                id={item.id}
+                                index={i}
+                                text={item.text}
+                                type={item.type}
+                                number={item.number}
+                                color={item.color}
+                                todo={item.todo}
+                                weekBeginning={props.week.date}
+                                archive={true}
+                                onChangeDay={null}
+                                onRemoveItem={null}
+                            />
+                        )}
                     </tbody>
                 </table>
             </section>

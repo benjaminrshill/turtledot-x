@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Item from './Item';
 import UpdateItem from './UpdateItem';
 import {v4 as uuidv4} from 'uuid';
 import sortColor from '../../functions/sortColor';
-import {colors, days} from '../../static/colors';
+import {colors} from '../../static/colors';
 import './items.css';
 
 export default function Items() {

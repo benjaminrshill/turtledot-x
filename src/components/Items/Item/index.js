@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import UpdateItem from '../UpdateItem';
 import cutNumber from '../../../functions/cutNumber';
 import validateItem from '../../../functions/validateItem';
-import '../../../weeks.css';
 
 export default function Item(props) {
 

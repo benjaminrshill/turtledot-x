@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import Row from '../../Table/Row';
+import Index from '../../Row';
 import '../arrange.css';
 
 let touchData = {};
@@ -10,7 +10,9 @@ export default function ArrangeWeek(props) {
     const [unselected, editUnselected] = useState(props.items);
     const [selected, editSelected] = useState([]);
 
-    useEffect(() => createWeek(), [week]);
+    useEffect(() => {
+        createWeek();
+    }, [week]);
 
     async function createWeek() {
         let createSelected = [];
@@ -77,29 +79,35 @@ export default function ArrangeWeek(props) {
         }
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
-        if (props.isThisWeek) updateArchive();
     }
 
-    function updateArchive() {
-        let archive = [];
-        let thisWeek = {
-            date: props.weekBeginning,
-            items: [...selected]
-        };
-        if (localStorage.getItem('archive')) {
-            archive = JSON.parse(localStorage.getItem('archive'));
-            let index = archive.findIndex(week => week.date === props.weekBeginning);
-            if (index !== -1) {
-                archive[index] = thisWeek;
-            } else {
-                archive.unshift(thisWeek);
-            }
-        } else {
-            archive.unshift(thisWeek);
-        }
-        console.log(archive)
-        localStorage.setItem('archive', JSON.stringify(archive));
+    function saveTodo(event) {
+        let newWeek = {...week};
+        let item = newWeek.items.find(item => item[0] === event.currentTarget.dataset.id);
+        let day = event.currentTarget.dataset.day;
+        item[1][day] = event.target.value;
+        localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
+        editWeek({...newWeek});
     }
+
+    // function updateArchive() {
+    //     let archive = JSON.parse(localStorage.getItem('archive'));
+    //     let thisWeek = {
+    //         date: props.weekBeginning,
+    //         items: [...selected]
+    //     };
+    //     if (archive) {
+    //         if (archive[0].date === thisWeek.date) {
+    //             archive[0] = thisWeek;
+    //         } else {
+    //             archive.unshift(thisWeek);
+    //         }
+    //     } else {
+    //         archive = [];
+    //         archive.unshift(thisWeek);
+    //     }
+    //     localStorage.setItem('archive', JSON.stringify(archive));
+    // }
 
     return (
         <div className='week'>
@@ -126,7 +134,7 @@ export default function ArrangeWeek(props) {
                     </thead>
                     <tbody data-dragweek={props.weekBeginning}>
                         {selected.map((item, i) =>
-                            <Row
+                            <Index
                                 key={item.id + props.weekBeginning}
                                 id={item.id}
                                 index={i}
@@ -139,6 +147,7 @@ export default function ArrangeWeek(props) {
                                 weekBeginning={props.weekBeginning}
                                 onRemoveItem={removeItemFromWeek}
                                 onChangeDay={changeDay}
+                                onSaveTodo={saveTodo}
                                 // onDragStart={onDragStart}
                                 // onDragOver={onDragOver}
                                 // onDragLeave={onDragLeave}

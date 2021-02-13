@@ -1,7 +1,6 @@
 import React from 'react';
 import ArrangeWeek from './ArrangeWeek';
 import {days} from '../../static/colors';
-import '../../weeks.css';
 import './arrange.css';
 
 export default function Arrange(props) {
