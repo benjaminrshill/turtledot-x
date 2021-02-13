@@ -7,16 +7,15 @@ let touchData = {};
 export default function ArrangeWeek(props) {
 
     const [week, editWeek] = useState(JSON.parse(localStorage.getItem(props.weekBeginning)));
-    const [unselected, editUnselected] = useState(props.items);
+    const [unselected, editUnselected] = useState(JSON.parse(localStorage.getItem('items')));
     const [selected, editSelected] = useState([]);
 
-    useEffect(() => {
-        createWeek();
-    }, [week]);
+    useEffect(() => createWeek(), [week]);
 
     async function createWeek() {
+        console.log(unselected);
         let createSelected = [];
-        let createUnselected = [...props.items];
+        let createUnselected = [...unselected];
         let newWeek = await JSON.parse(localStorage.getItem(props.weekBeginning));
         if (newWeek) {
             newWeek.items.forEach(item => {
@@ -35,7 +34,7 @@ export default function ArrangeWeek(props) {
     function addItemToWeek(event) {
         let newWeek = {...week};
         if (!newWeek) newWeek = {date: props.weekBeginning, items: []};
-        newWeek.items.push([event.target.value, [0,0,0,0,0,0,0]]);
+        newWeek.items.push([event.target.value, [-1, -1, -1, -1, -1, -1, -1]]);
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
     }
@@ -45,7 +44,7 @@ export default function ArrangeWeek(props) {
         let newWeek = {...week};
         unselected.forEach(item => ids.push(item.id));
         if (!newWeek) newWeek = {date: props.weekBeginning, items: []};
-        ids.forEach(id => newWeek.items.push([id, [0,0,0,0,0,0,0]]));
+        ids.forEach(id => newWeek.items.push([id, [-1, -1, -1, -1, -1, -1, -1]]));
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
     }
@@ -57,25 +56,25 @@ export default function ArrangeWeek(props) {
         editWeek({...newWeek});
     }
 
-    function copyAllFromThisWeek () {
-        if (localStorage.getItem(props.thisWeekBeginning)) {
-            let newWeek = {...week};
-            let thisWeek = JSON.parse(localStorage.getItem(props.thisWeekBeginning));
-            if (!newWeek) newWeek = {date: props.weekBeginning, items: []};
-            newWeek.items = [...thisWeek.items];
-            localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
-            editWeek({...newWeek});
-        }
-    }
+    // function copyAllFromThisWeek () {
+    //     if (localStorage.getItem(props.thisWeekBeginning)) {
+    //         let newWeek = {...week};
+    //         let thisWeek = JSON.parse(localStorage.getItem(props.thisWeekBeginning));
+    //         if (!newWeek) newWeek = {date: props.weekBeginning, items: []};
+    //         newWeek.items = [...thisWeek.items];
+    //         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
+    //         editWeek({...newWeek});
+    //     }
+    // }
 
-    function changeDay(event, closed = 0) {
+    function changeDay(event) {
         let newWeek = {...week};
-        let item = newWeek.items.find(item => item[0] === event.currentTarget.dataset.id);
-        let day = event.currentTarget.dataset.day;
+        let item = newWeek.items.find(item => item[0] === event.target.dataset.id);
+        let day = event.target.dataset.day;
         if (props.isThisWeek) {
-            item[1][day] = (item[1][day] === 0 ? 1 : item[1][day] === 1 ? 100 : 0);
+            item[1][day] = (item[1][day] === (-1) ? 0 : item[1][day] === 0 ? 1 : (-1));
         } else {
-            item[1][day] = (item[1][day] > 0 ? 0 : 1);
+            item[1][day] = (item[1][day] > (-1) ? (-1) : 0);
         }
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
@@ -83,9 +82,9 @@ export default function ArrangeWeek(props) {
 
     function saveTodo(event) {
         let newWeek = {...week};
-        let item = newWeek.items.find(item => item[0] === event.currentTarget.dataset.id);
-        let day = event.currentTarget.dataset.day;
-        item[1][day] = event.target.value;
+        let item = newWeek.items.find(item => item[0] === event.target.dataset.id);
+        let day = event.target.dataset.day;
+        item[1][day] = +event.target.value;
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
     }
@@ -133,60 +132,60 @@ export default function ArrangeWeek(props) {
                     </tr>
                     </thead>
                     <tbody data-dragweek={props.weekBeginning}>
-                        {selected.map((item, i) =>
-                            <Index
-                                key={item.id + props.weekBeginning}
-                                id={item.id}
-                                index={i}
-                                text={item.text}
-                                type={item.type}
-                                number={item.number}
-                                color={item.color}
-                                todo={item.todo}
-                                isThisWeek={props.isThisWeek}
-                                weekBeginning={props.weekBeginning}
-                                onRemoveItem={removeItemFromWeek}
-                                onChangeDay={changeDay}
-                                onSaveTodo={saveTodo}
-                                // onDragStart={onDragStart}
-                                // onDragOver={onDragOver}
-                                // onDragLeave={onDragLeave}
-                                // onDrop={onDrop}
-                            />
-                        )}
+                    {selected.map((item, i) =>
+                        <Index
+                            key={item.id + props.weekBeginning}
+                            id={item.id}
+                            index={i}
+                            text={item.text}
+                            type={item.type}
+                            number={item.number}
+                            color={item.color}
+                            todo={item.todo}
+                            isThisWeek={props.isThisWeek}
+                            weekBeginning={props.weekBeginning}
+                            onRemoveItem={removeItemFromWeek}
+                            onChangeDay={changeDay}
+                            onSaveTodo={saveTodo}
+                            // onDragStart={onDragStart}
+                            // onDragOver={onDragOver}
+                            // onDragLeave={onDragLeave}
+                            // onDrop={onDrop}
+                        />
+                    )}
                     </tbody>
                 </table>
             </section>
             {unselected.length > 0 &&
-                <div className='edit-box'>
-                    {selected.length < 1 && props.weekName === 'Next Week' &&
+            <div className='edit-box'>
+                {/*{selected.length < 1 && props.weekName === 'Next Week' &&*/}
+                {/*    <button*/}
+                {/*        className='addAllItems copy'*/}
+                {/*        onClick={copyAllFromThisWeek}*/}
+                {/*    >*/}
+                {/*        copy schedule from this week*/}
+                {/*    </button>*/}
+                {/*}*/}
+                <button
+                    className='addAllItems'
+                    onClick={addAllItemsToWeek}
+                >
+                    add all items
+                </button>
+                <div className='items-list'>
+                    {unselected.map(item =>
                         <button
-                            className='addAllItems copy'
-                            onClick={copyAllFromThisWeek}
+                            key={item.id + props.weekBeginning + 'u'}
+                            value={item.id}
+                            data-week={props.weekBeginning}
+                            className={'items-list-item ' + item.color}
+                            onClick={addItemToWeek}
                         >
-                            copy schedule from this week
+                            {item.text}
                         </button>
-                    }
-                    <button
-                        className='addAllItems'
-                        onClick={addAllItemsToWeek}
-                    >
-                        add all items
-                    </button>
-                    <div className='items-list'>
-                        {unselected.map(item =>
-                            <button
-                                key={item.id + props.weekBeginning + 'u'}
-                                value={item.id}
-                                data-week={props.weekBeginning}
-                                className={'items-list-item ' + item.color}
-                                onClick={addItemToWeek}
-                            >
-                                {item.text}
-                            </button>
-                        )}
-                    </div>
+                    )}
                 </div>
+            </div>
             }
         </div>
     );

@@ -25,9 +25,6 @@ export default function App() {
           <Route path='/Archive'>
             <Archive />
           </Route>
-          <Route path='/Settings'>
-            <Settings />
-          </Route>
           <Route path='/'>
             <Redirect to='/Arrange' />
           </Route>

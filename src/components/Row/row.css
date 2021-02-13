@@ -36,7 +36,6 @@ td {
     appearance: none;
     -moz-appearance: textfield;
     width: 100%;
-    color: var(--high-color);
     font-size: small;
     background: transparent;
     border: 0;

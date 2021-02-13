@@ -7,13 +7,10 @@ export default function Index(props) {
     const [todo, editTodo] = useState([...props.todo]);
     const [editing, switchEditing] = useState(false);
     const [row, editRow] = useState({
-        onesAndZeroes: '',
-        currentNumber: '',
-        currentDone: '',
+        currentTotal: '',
         tooHigh: false,
         tooLow: false,
-        allBoolDone: false,
-        allCountDone: false,
+        allDone: false,
         cutNum: '',
         goalNum: '',
         originalDay: '',
@@ -24,27 +21,21 @@ export default function Index(props) {
     useEffect(() => doNumbers(), [props]);
 
     function doNumbers() {
-        let countedNumber = 0;
-        props.todo.forEach(day => day > 0 ? countedNumber++ : null);
-        const onesAndZeroes = props.todo.map(n => n = (n >= 1 ? 1 : 0));
-        const currentNumber = onesAndZeroes.reduce((a, b) => a + b, 0);
-        const currentDone = props.todo.reduce((a, b) => a + b, 0);
-        const allBoolDone = currentDone >= +props.number * 100;
-        const allCountDone = currentDone >= currentDone;
-        const tooHigh = currentNumber > +props.number;
-        const tooLow = currentNumber < +props.number;
+        let numberToDo = 0;
+        props.todo.forEach(day => day > -1 ? numberToDo++ : null);
+        const currentTotal = props.todo.reduce((a, b) => a + b, 0);
+        const allDone = currentTotal >= +props.number;
+        const tooHigh = numberToDo > +props.number;
+        const tooLow = numberToDo < +props.number;
         const cutNum = cutNumber(props.number);
-        const goalNum = cutNumber(props.number / countedNumber);
+        const goalNum = cutNumber(props.number / numberToDo);
         const originalDay = new Date().getDay();
         const today = originalDay === 0 ? 6 : originalDay - 1;
         editRow({
-            onesAndZeroes: onesAndZeroes,
-            currentNumber: currentNumber,
-            currentDone: currentDone,
+            currentTotal: currentTotal,
             tooHigh: tooHigh,
             tooLow: tooLow,
-            allBoolDone: allBoolDone,
-            allCountDone: allCountDone,
+            allDone: allDone,
             cutNum: cutNum,
             goalNum: goalNum,
             originalDay: originalDay,
@@ -53,10 +44,15 @@ export default function Index(props) {
     }
 
     function handleNumber(event) {
+        let newTodo = [...todo];
+        newTodo[event.target.dataset.day] = event.target.value;
+        editTodo([...newTodo]);
+    }
+
+    function saveTodo(event) {
         if (validateTodo(event.target.value)) {
-            let newTodo = [...todo];
-            newTodo[event.target.dataset.day] = event.target.value;
-            editTodo([...newTodo]);
+            props.onSaveTodo(event);
+            switchEditing(false);
         }
     }
 
@@ -71,7 +67,7 @@ export default function Index(props) {
             data-index={props.index}
             data-dragid={props.id}
             data-dragweek={props.weekBeginning}
-            className={props.type ? (row.allBoolDone ? 'allDone' : props.color) : (row.allCountDone ? 'allDone' : props.color)}
+            className={row.allDone ? 'allDone' : props.color}
             // onDragStart={props.onDragStart}
             // onDragOver={props.onDragOver}
             // onDragLeave={props.onDragLeave}
@@ -101,7 +97,7 @@ export default function Index(props) {
                     data-item={props.index}
                     data-day={i}
                     data-week={props.weekBeginning}
-                    onClick={props.type ? props.onChangeDay : () => switchEditing(true)}
+                    onClick={props.type ? props.onChangeDay : (props.isThisWeek ? () => switchEditing(true) : undefined)}
                     className={'main-cell week-spots' + (props.isThisWeek && row.today === i ? props.color : '')}>
                     {editing ?
                         <input
@@ -110,18 +106,18 @@ export default function Index(props) {
                             data-item={props.index}
                             data-day={i}
                             data-week={props.weekBeginning}
-                            value={day > 0 ? day : ''}
+                            value={day}
                             className={'type-cell' + (day === 1 ? ' grey' : '')}
                             onChange={handleNumber}
-                            onBlur={() => props.onSaveTodo(todo)}
+                            onBlur={saveTodo}
                         />
                         :
                         <div
                             className={props.type ?
-                                ('spot' + (day === 100 ? ' closed' : day === 1 ? ' open' : ''))
+                                ('spot' + (day === 1 ? ' closed' : day === 0 ? ' open' : ''))
                                 :
-                                ('type-cell' + (day === 1 ? ' grey' : ''))}>
-                            {!props.type && day > 0 ? (props.isThisWeek ? day : row.goalNum) : ''}
+                                ('type-cell' + (day === 0 ? ' grey' : ''))}>
+                            {!props.type && day > -1 ? (props.isThisWeek ? day : row.goalNum) : ''}
                         </div>
                     }
                 </td>

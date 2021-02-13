@@ -5,7 +5,6 @@ import './arrange.css';
 
 export default function Arrange(props) {
 
-    const items = JSON.parse(localStorage.getItem('items'));
     const thisWeekBeginning = getWeekBeginning();
     const nextWeekBeginning = getWeekBeginning(7);
 
@@ -29,7 +28,6 @@ export default function Arrange(props) {
                 key={'thisWeek'}
                 weekName={'This Week'}
                 days={days}
-                items={items}
                 weekBeginning={thisWeekBeginning}
                 isThisWeek={true}
             />
@@ -37,7 +35,6 @@ export default function Arrange(props) {
                 key={'nextWeek'}
                 weekName={'Next Week'}
                 days={days}
-                items={items}
                 weekBeginning={nextWeekBeginning}
                 thisWeekBeginning={thisWeekBeginning}
             />

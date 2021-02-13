@@ -6,38 +6,18 @@ export default function Settings() {
     function clearItems() {
         if (window.confirm('Really delete all items? This cannot be undone!')) {
             localStorage.removeItem('items');
-            this.setState({
-                items: []
-            });
         }
     }
 
     function clearWeeks() {
         if (window.confirm('Really delete all weeks? This cannot be undone!')) {
             localStorage.removeItem('weeks');
-            this.setState({
-                weeks: [
-                    {
-                        date: '',
-                        items: []
-                    }
-                ]
-            });
         }
     }
 
     function clearAll() {
         if (window.confirm('Really delete all data? This cannot be undone!')) {
             localStorage.clear();
-            this.setState({
-                items: [],
-                weeks: [
-                    {
-                        date: '',
-                        items: []
-                    }
-                ]
-            });
         }
     }
 
