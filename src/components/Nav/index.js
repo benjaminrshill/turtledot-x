@@ -5,6 +5,14 @@ import './nav.css';
 export default function Nav() {
     return (
         <nav>
+            <NavLink to='/Archive' className='menu-item' activeClassName='here'>
+                <div className='menu-icon' style={{fontSize: 3 + 'rem'}}>
+                    &larr;
+                </div>
+                <div className='menu-text'>
+                    Archive
+                </div>
+            </NavLink>
             <NavLink to='/Items' className='menu-item' activeClassName='here'>
                 <div className='menu-icon'>
                     +
@@ -15,26 +23,10 @@ export default function Nav() {
             </NavLink>
             <NavLink to='/Arrange' className='menu-item' activeClassName='here'>
                 <div className='menu-icon'>
-                    <span></span>
-                </div>
-                <div className='menu-text'>
-                    Arrange
-                </div>
-            </NavLink>
-            <NavLink to='/Doit' className='menu-item' activeClassName='here'>
-                <div className='menu-icon'>
                     <span className='menu-icon-doit'></span>
                 </div>
                 <div className='menu-text'>
-                    Doit!
-                </div>
-            </NavLink>
-            <NavLink to='/Archive' className='menu-item' activeClassName='here'>
-                <div className='menu-icon' style={{fontSize: 3 + 'rem'}}>
-                    &larr;
-                </div>
-                <div className='menu-text'>
-                    Archive
+                    Arrange
                 </div>
             </NavLink>
             <NavLink to='/Settings' className='menu-item' activeClassName='here'>

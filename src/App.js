@@ -11,10 +11,6 @@ import './app.css';
 
 export default function App() {
 
-  const lastWeekBeginning = getWeekBeginning(-7);
-  const thisWeekBeginning = getWeekBeginning();
-  const nextWeekBeginning = getWeekBeginning(7);
-
   function getWeekBeginning(addWeek = 0) {
     let newDate = new Date(),
         day = newDate.getDay();
@@ -41,14 +37,8 @@ export default function App() {
           </Route>
           <Route path='/Arrange'>
             <Arrange
-                lastWeekBeginning={lastWeekBeginning}
-                thisWeekBeginning={thisWeekBeginning}
-                nextWeekBeginning={nextWeekBeginning}
-            />
-          </Route>
-          <Route path='/Doit'>
-            <Doit
-                thisWeekBeginning={thisWeekBeginning}
+                thisWeekBeginning={getWeekBeginning()}
+                nextWeekBeginning={getWeekBeginning(7)}
             />
           </Route>
           <Route path='/Archive'>
@@ -62,7 +52,7 @@ export default function App() {
             />
           </Route>
           <Route path='/'>
-            <Redirect to='/Doit' />
+            <Redirect to='/Arrange' />
           </Route>
         </Switch>
         <Nav />

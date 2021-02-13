@@ -82,9 +82,9 @@ export default function ArrangeWeek(props) {
 
     return (
         <div className='week'>
-            <h2>
+            <h1>
                 {props.weekName}
-            </h2>
+            </h1>
             <section>
                 <table>
                     <thead>

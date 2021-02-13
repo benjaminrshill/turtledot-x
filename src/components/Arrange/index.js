@@ -10,9 +10,6 @@ export default function Arrange(props) {
 
     return (
         <main id='arrange'>
-            <h1>
-                Arrange
-            </h1>
             <ArrangeWeek
                 key={'thisWeek'}
                 weekName={'This Week'}
