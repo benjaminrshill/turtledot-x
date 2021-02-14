@@ -29,14 +29,14 @@
     box-shadow: var(--main-shadow);
 }
 
+.item .type {
+    line-height: 32px;
+}
+
 .item .number {
     width: 8rem;
     border-radius: 5rem;
     -moz-appearance: textfield;
-}
-
-button.delete {
-    transform: rotate(-45deg);
 }
 
 .edit-box {
@@ -51,6 +51,7 @@ button.delete {
 button.edit-complete {
     float: right;
     margin: 1rem;
+    line-height: 36px;
 }
 
 .palette {

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import validateItem from '../../../functions/validateItem';
-import '../../Arrange/'
+import '../../Arrange/';
+import {X, Check} from 'react-feather';
 
 export default function UpdateItem(props) {
 
@@ -76,8 +77,8 @@ export default function UpdateItem(props) {
                 </button>
                 <button
                     onClick={props.onCancelUpdate}
-                    className='plus-sign delete'>
-                    +
+                    className='plus-sign'>
+                    <X size={16} />
                 </button>
             </div>
             <div className='edit-box'>
@@ -96,7 +97,7 @@ export default function UpdateItem(props) {
                     <button
                         onClick={updateItem}
                         className='edit-complete'>
-                        &#10003;
+                        <Check size={16} />
                     </button>
                 </div>
             </div>

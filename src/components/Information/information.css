@@ -1,0 +1,35 @@
+.info {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.info-box {
+    position: fixed;
+    width: calc(100vw - 20px);
+    height: calc(100vh - 110px);
+    top: 40px;
+    left: 10px;
+    padding: 0 20px 20px 20px;
+    background: rgba(255, 255, 255, 1);
+    overflow-y: scroll;
+}
+
+.info-box ul {
+    margin: 0 0 40px 10px;
+    padding: 0;
+}
+
+.info-box li, .info-box i {
+    margin: 10px 0;
+    padding: 0;
+    font-size: 14px;
+    text-align: left;
+    line-height: 18px;
+}
+
+.info-box li.indent {
+    list-style-position: inside;
+    list-style-type: circle;
+    font-weight: 300;
+}

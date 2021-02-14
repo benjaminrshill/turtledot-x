@@ -5,6 +5,7 @@ import {v4 as uuidv4} from 'uuid';
 import sortColor from '../../functions/sortColor';
 import {colors} from '../../static/colors';
 import './items.css';
+import {Plus} from 'react-feather';
 
 export default function Items() {
 
@@ -65,7 +66,7 @@ export default function Items() {
                 <button
                     onClick={() => switchAdding(true)}
                     className='plus-sign add'>
-                    +
+                    <Plus size={18} />
                 </button>
             }
         </main>

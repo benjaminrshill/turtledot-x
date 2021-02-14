@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import UpdateItem from '../UpdateItem';
 import cutNumber from '../../../functions/cutNumber';
 import validateItem from '../../../functions/validateItem';
+import {X, Hash} from 'react-feather';
 
 export default function Item(props) {
 
@@ -61,7 +62,7 @@ export default function Item(props) {
                             <div className='day spot open'>
                             </div>
                             :
-                            '#'
+                            <Hash size={14} />
                         }
                     </button>
                     <button
@@ -77,8 +78,8 @@ export default function Item(props) {
                         value={item.id}
                         disabled={inUse}
                         onClick={props.onDeleteItem}
-                        className='plus-sign delete'>
-                        +
+                        className='plus-sign'>
+                        <X size={16} />
                     </button>
                 </div>
             }
