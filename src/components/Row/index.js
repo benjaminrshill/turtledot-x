@@ -88,7 +88,7 @@ export default function Index(props) {
             </td>
             <td className={'main-cell week-item-number'
                 + (props.type && (row.tooHigh ? ' week-number-arrow-down' : row.tooLow ? ' week-number-arrow-up' : ''))}>
-                {props.type ? props.number : (row.goalNum > -1 ? row.goalNum : props.number)}
+                {cutNumber(row.goalNum > -1 ? row.goalNum : props.number)}
             </td>
             {todo.map((day, i) =>
                 <td

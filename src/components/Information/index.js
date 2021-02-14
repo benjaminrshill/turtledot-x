@@ -15,8 +15,8 @@ export default function Information() {
                     <ul>
                         <li>touch the <Plus size={16} /> to add an item</li>
                         <li>enter the item's name (e.g. <i>push ups</i>, <i>meditate</i>)</li>
-                        <li>choose between dot (one per day) or number (up to 100,000 per week)</li>
-                        <li>enter a weekly goal number for the item (max. 7 for dots; max. 100,000 for numbers)</li>
+                        <li>choose between dot (one per day) or number (up to 99,999 per week)</li>
+                        <li>enter a weekly goal number for the item (max. 7 for dots; max. 99,999 for numbers)</li>
                         <li>choose a colour for the item (similar items can be visually grouped)</li>
                         <li>touch <Check size={16} /> to save, or <X size={16} /> to cancel</li>
                         <li>touch an item to edit it</li>
