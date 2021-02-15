@@ -113,9 +113,6 @@ export default function ArrangeWeek(props) {
 
     return (
         <div className='week'>
-            <h1>
-                {props.weekName}
-            </h1>
             <section>
                 <table>
                     <thead>

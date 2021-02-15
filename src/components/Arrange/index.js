@@ -24,6 +24,9 @@ export default function Arrange(props) {
 
     return (
         <main id='arrange'>
+            <h1>
+                This Week
+            </h1>
             <ArrangeWeek
                 key={'thisWeek'}
                 weekName={'This Week'}
@@ -31,6 +34,9 @@ export default function Arrange(props) {
                 weekBeginning={thisWeekBeginning}
                 isThisWeek={true}
             />
+            <h2>
+                Next Week
+            </h2>
             <ArrangeWeek
                 key={'nextWeek'}
                 weekName={'Next Week'}
