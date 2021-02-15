@@ -1,7 +1,7 @@
-# turtledot
+# turtledot x
 #### weekly itemiser
 
-[live version](https://benjaminrshill.github.io/turtledot)
+[live version](https://benjaminrshill.github.io/turtledot-x)
 
 ***
 
@@ -13,18 +13,15 @@
 #### arrange
 - add items to the current and next weeks
 - unobtrusive alert if you're not matching your target for an item
-- (desktop only) drag and drop items to rearrange rows
-
-#### do it
 - check off items for this week
 - if you meet your target, get a satisfying 'blackout' for that item
 
-#### clear
-- want to start again? clear your items, weeks, or everything, with dedicated buttons
-
+#### archive
+- uneditable list of previous weeks (currently unavailable)
 ***
 
-##### turtledot currently uses localStorage
+##### turtledot x uses localStorage
 so be careful with clearing your browser if you want to keep your progress!
 
-a more robust version, with long-term history and device syncing, is in the works
+##### turtledot x is a PWA
+you can add it to your homescreen from the browser
