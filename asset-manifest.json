@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/turtledot/static/css/main.f3ee42ff.chunk.css",
+    "main.js": "/turtledot/static/js/main.01074fc8.chunk.js",
+    "main.js.map": "/turtledot/static/js/main.01074fc8.chunk.js.map",
+    "runtime-main.js": "/turtledot/static/js/runtime-main.38018f10.js",
+    "runtime-main.js.map": "/turtledot/static/js/runtime-main.38018f10.js.map",
+    "static/js/2.84b540b3.chunk.js": "/turtledot/static/js/2.84b540b3.chunk.js",
+    "static/js/2.84b540b3.chunk.js.map": "/turtledot/static/js/2.84b540b3.chunk.js.map",
+    "index.html": "/turtledot/index.html",
+    "service-worker.js": "/turtledot/service-worker.js",
+    "service-worker.js.map": "/turtledot/service-worker.js.map",
+    "static/css/main.f3ee42ff.chunk.css.map": "/turtledot/static/css/main.f3ee42ff.chunk.css.map",
+    "static/js/2.84b540b3.chunk.js.LICENSE.txt": "/turtledot/static/js/2.84b540b3.chunk.js.LICENSE.txt",
+    "static/media/row.css": "/turtledot/static/media/arrowUp.d1f00b13.svg",
+    "static/media/turtledot.9f70b9aa.svg": "/turtledot/static/media/turtledot.9f70b9aa.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.38018f10.js",
+    "static/js/2.84b540b3.chunk.js",
+    "static/css/main.f3ee42ff.chunk.css",
+    "static/js/main.01074fc8.chunk.js"
+  ]
+}
