@@ -15,12 +15,6 @@ export default function Settings() {
         }
     }
 
-    function clearAll() {
-        if (window.confirm('Really delete all data? This cannot be undone!')) {
-            localStorage.clear();
-        }
-    }
-
     return (
         <main>
             <section className='clear'>
@@ -33,11 +27,6 @@ export default function Settings() {
                     className='clear-button'
                     onClick={clearWeeks}>
                     clear weeks
-                </button>
-                <button
-                    className='clear-button'
-                    onClick={clearAll}>
-                    clear all
                 </button>
             </section>
         </main>
