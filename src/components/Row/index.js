@@ -25,8 +25,8 @@ export default function Index(props) {
         props.todo.forEach(day => day > -1 ? numberToDo.push(+day) : null);
         const currentTotal = numberToDo.reduce((a, b) => a + b, 0);
         const allDone = currentTotal >= +props.number;
-        const tooHigh = numberToDo > +props.number;
-        const tooLow = numberToDo < +props.number;
+        const tooHigh = numberToDo.length > +props.number;
+        const tooLow = numberToDo.length < +props.number;
         const cutNum = cutNumber(+props.number);
         const goalNum = cutNumber(+props.number - currentTotal);
         const originalDay = new Date().getDay();
