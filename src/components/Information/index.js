@@ -14,9 +14,9 @@ export default function Information() {
                     <h2>ITEMS</h2>
                     <ul>
                         <li>touch the <Plus size={16} /> to add an item</li>
-                        <li>enter the item's name (e.g. <i>push ups</i>, <i>meditate</i>)</li>
-                        <li>choose between dot (one per day) or number (up to 99,999 per week)</li>
-                        <li>enter a weekly goal number for the item (max. 7 for dots; max. 99,999 for numbers)</li>
+                        <li>enter the item's name</li>
+                        <li>choose between dot (one per day) or number (up to 100,000 per week)</li>
+                        <li>enter a weekly goal number for the item (max. 7 for dots; max. 100,000 for numbers)</li>
                         <li>choose a colour for the item (similar items can be visually grouped)</li>
                         <li>touch <Check size={16} /> to save, or <X size={16} /> to cancel</li>
                         <li>touch an item to edit it</li>
@@ -29,7 +29,7 @@ export default function Information() {
                         <li className='indent'>touch once on a given day to set it as <i>todo</i> for that day</li>
                         <li className='indent'>touch again to set it as <i>done</i> for that day</li>
                         <li>for number items</li>
-                        <li className='indent'>when you've completed a number (e.g. 5,000 steps), touch the relevant square to enter it</li>
+                        <li className='indent'>when you've completed a number (e.g. 5,000 steps), touch the relevant square twice to enter it</li>
                         <li className='indent'>the number to the left of Monday tells you how many left to do that week</li>
                         <li>when you've hit the weekly target for an item, the row will turn black
                         </li>

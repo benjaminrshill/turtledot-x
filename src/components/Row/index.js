@@ -60,7 +60,7 @@ export default function Row(props) {
     }
 
     function validateTodo(day) {
-        return day > -2 && day < 100001;
+        return (day > -2 && day < 100001) || day === '';
     }
 
     return (
@@ -105,12 +105,14 @@ export default function Row(props) {
                     {editing ?
                         <input
                             type='number'
+                            min='-1'
+                            max='100000'
                             data-id={props.id}
                             data-item={props.index}
                             data-day={i}
                             data-week={props.weekBeginning}
                             value={day > -1 ? day : ''}
-                            className={'type-cell' + (day === 1 ? ' grey' : '')}
+                            className={'type-cell' + (day === 0 ? ' grey' : '')}
                             onChange={handleNumber}
                             onBlur={saveTodo}
                         />

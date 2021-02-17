@@ -51,10 +51,12 @@ export default function ArrangeWeek(props) {
     }
 
     function removeItemFromWeek(event) {
-        let newWeek = {...week};
-        newWeek.items = newWeek.items.filter(needle => needle[0] !== event.target.value);
-        localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
-        editWeek({...newWeek});
+        if (window.confirm('Really remove this item from schedule?')) {
+            let newWeek = {...week};
+            newWeek.items = newWeek.items.filter(needle => needle[0] !== event.target.value);
+            localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
+            editWeek({...newWeek});
+        }
     }
 
     // function copyAllFromThisWeek () {
@@ -85,7 +87,7 @@ export default function ArrangeWeek(props) {
         let newWeek = {...week};
         let item = newWeek.items.find(item => item[0] === event.currentTarget.dataset.id);
         let day = event.currentTarget.dataset.day;
-        item[1][day] = event.target.value;
+        item[1][day] = event.target.value === '' ? -1 : +event.target.value;
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
     }
