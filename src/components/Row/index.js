@@ -120,7 +120,7 @@ export default function Row(props) {
                                 ('spot' + (day === 1 ? ' closed' : day === 0 ? ' open' : ''))
                                 :
                                 ('type-cell' + (day === 0 ? ' grey' : ''))}>
-                            {!props.type && day > 0 ? day : !props.type && day > -1 ? row.avgTodo : ''}
+                            {!props.type && day > 0 ? day : !props.type && day > -1 ? cutNumber(row.avgTodo) : ''}
                         </div>
                     }
                 </td>
