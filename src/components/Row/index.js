@@ -2,18 +2,19 @@ import React, {useEffect, useState} from 'react';
 import cutNumber from '../../functions/cutNumber';
 import './row.css';
 
-export default function Index(props) {
+export default function Row(props) {
 
     const [todo, editTodo] = useState([...props.todo]);
     const [editing, switchEditing] = useState(false);
     const [row, editRow] = useState({
-        currentTotal: '',
+        currentTotal: 0,
+        avgTodo: 0,
         tooHigh: false,
         tooLow: false,
         allDone: false,
-        cutNum: '',
-        goalNum: '',
-        originalDay: '',
+        cutNum: 0,
+        goalNum: 0,
+        originalDay: 0,
         today: 0
     });
 
@@ -25,6 +26,7 @@ export default function Index(props) {
         props.todo.forEach(day => day > -1 ? numberToDo.push(+day) : null);
         const currentTotal = numberToDo.reduce((a, b) => a + b, 0);
         const allDone = currentTotal >= +props.number;
+        const avgTodo = props.number / numberToDo.length;
         const tooHigh = numberToDo.length > +props.number;
         const tooLow = numberToDo.length < +props.number;
         const cutNum = cutNumber(+props.number);
@@ -33,6 +35,7 @@ export default function Index(props) {
         const today = originalDay === 0 ? 6 : originalDay - 1;
         editRow({
             currentTotal: currentTotal,
+            avgTodo: avgTodo,
             tooHigh: tooHigh,
             tooLow: tooLow,
             allDone: allDone,
@@ -57,7 +60,7 @@ export default function Index(props) {
     }
 
     function validateTodo(day) {
-        return day < 100000;
+        return day > -2 && day < 100001;
     }
 
     return (
@@ -88,7 +91,7 @@ export default function Index(props) {
             </td>
             <td className={'main-cell week-item-number'
                 + (props.type && (row.tooHigh ? ' week-number-arrow-down' : row.tooLow ? ' week-number-arrow-up' : ''))}>
-                {cutNumber(row.goalNum > -1 ? row.goalNum : props.number)}
+                {cutNumber(row.allDone ? row.currentTotal : row.goalNum > -1 ? row.goalNum : props.number)}
             </td>
             {todo.map((day, i) =>
                 <td
@@ -97,7 +100,7 @@ export default function Index(props) {
                     data-item={props.index}
                     data-day={i}
                     data-week={props.weekBeginning}
-                    onClick={props.type ? props.onChangeDay : (props.isThisWeek ? () => switchEditing(true) : undefined)}
+                    onClick={props.type ? props.onChangeDay : props.isThisWeek ? () => switchEditing(true) : props.onChangeDay}
                     className={'main-cell week-spots' + (props.isThisWeek && row.today === i ? props.color : '')}>
                     {editing ?
                         <input
@@ -117,7 +120,7 @@ export default function Index(props) {
                                 ('spot' + (day === 1 ? ' closed' : day === 0 ? ' open' : ''))
                                 :
                                 ('type-cell' + (day === 0 ? ' grey' : ''))}>
-                            {!props.type && day > -1 ? (props.isThisWeek ? day : row.goalNum) : ''}
+                            {!props.type && day > 0 ? day : !props.type && day > -1 ? row.avgTodo : ''}
                         </div>
                     }
                 </td>

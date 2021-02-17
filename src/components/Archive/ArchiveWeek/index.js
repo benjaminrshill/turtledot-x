@@ -1,5 +1,5 @@
 import React from 'react';
-import Index from '../../Row';
+import Row from '../../Row';
 import '../../Arrange/arrange.css';
 
 export default function ArchiveWeek(props) {
@@ -26,7 +26,7 @@ console.log(props.week)
                     </thead>
                     <tbody>
                         {props.week.items.map((item, i) =>
-                            <Index
+                            <Row
                                 key={item.id + props.week.date}
                                 id={item.id}
                                 index={i}

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import Index from '../../Row';
+import Row from '../../Row';
 import '../arrange.css';
 
 let touchData = {};
@@ -10,9 +10,7 @@ export default function ArrangeWeek(props) {
     const [unselected, editUnselected] = useState(JSON.parse(localStorage.getItem('items')));
     const [selected, editSelected] = useState([]);
 
-    useEffect(() => {
-        createWeek();
-    }, [week]);
+    useEffect(() => createWeek(), [week]);
 
     async function createWeek() {
         let createSelected = [];
@@ -133,7 +131,7 @@ export default function ArrangeWeek(props) {
                     </thead>
                     <tbody data-dragweek={props.weekBeginning}>
                     {selected.map((item, i) =>
-                        <Index
+                        <Row
                             key={item.id + props.weekBeginning}
                             id={item.id}
                             index={i}

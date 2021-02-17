@@ -3,7 +3,7 @@ import ArrangeWeek from './ArrangeWeek';
 import {days} from '../../static/colors';
 import './arrange.css';
 
-export default function Arrange(props) {
+export default function Arrange() {
 
     const thisWeekBeginning = getWeekBeginning();
     const nextWeekBeginning = getWeekBeginning(7);
