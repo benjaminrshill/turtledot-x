@@ -19,7 +19,10 @@ export default function Archive(props) {
             week.items.forEach(it => {
                 if (!it.type) {
                     it.todo.forEach((td, i) => {
-                        if (td.toString().length > 2) it.todo[i] = +td.substring(0,1);
+                        if (td.toString().length > 2) {
+                            let mahStr = td.substring(0,1);
+                            it.todo[i] = +mahStr;
+                        }
                         if (td === 1 || td === 0) it.todo[i] = -1;
                     });
                 }
