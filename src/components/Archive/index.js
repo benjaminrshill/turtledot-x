@@ -17,17 +17,10 @@ export default function Archive(props) {
         let newA = [...archive];
         newA.forEach(week => {
             week.items.forEach(it => {
-                if (it.type) {
+                if (!it.type) {
                     it.todo.forEach((td, i) => {
-                        it.todo[i] = td === 0 ? -1 : td === 1 ? 0 : 1;
-                    });
-                } else {
-                    let totalNum = 0;
-                    it.todo.forEach(td => {
-                        if (td === 100 || td === 1) totalNum++;
-                    });
-                    it.todo.forEach((td, i) => {
-                        if (td === 100) it.todo[i] = +it.number / totalNum;
+                        if (td.toString().length > 2) it.todo[i] = +td.substring(0,1);
+                        if (td === 0) it.todo[i] = -1;
                     });
                 }
             });
