@@ -20,7 +20,7 @@ export default function Archive(props) {
                 if (!it.type) {
                     it.todo.forEach((td, i) => {
                         if (td.toString().length > 2) it.todo[i] = +td.substring(0,1);
-                        if (td === 1) it.todo[i] = -1;
+                        if (td === 1 || td === 0) it.todo[i] = -1;
                     });
                 }
             });
