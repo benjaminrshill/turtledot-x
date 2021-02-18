@@ -3,7 +3,6 @@ import Row from '../../Row';
 import '../../Arrange/arrange.css';
 
 export default function ArchiveWeek(props) {
-console.log(props.week)
     return (
         <div className='week'>
             <section>
