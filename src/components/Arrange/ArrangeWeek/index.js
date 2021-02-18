@@ -81,6 +81,7 @@ export default function ArrangeWeek(props) {
         }
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
+        updateArchive();
     }
 
     function saveTodo(event) {
@@ -90,26 +91,27 @@ export default function ArrangeWeek(props) {
         item[1][day] = event.target.value === '' ? -1 : +event.target.value;
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
+        updateArchive();
     }
 
-    // function updateArchive() {
-    //     let archive = JSON.parse(localStorage.getItem('archive'));
-    //     let thisWeek = {
-    //         date: props.weekBeginning,
-    //         items: [...selected]
-    //     };
-    //     if (archive) {
-    //         if (archive[0].date === thisWeek.date) {
-    //             archive[0] = thisWeek;
-    //         } else {
-    //             archive.unshift(thisWeek);
-    //         }
-    //     } else {
-    //         archive = [];
-    //         archive.unshift(thisWeek);
-    //     }
-    //     localStorage.setItem('archive', JSON.stringify(archive));
-    // }
+    function updateArchive() {
+        let archive = JSON.parse(localStorage.getItem('archive'));
+        let thisWeek = {
+            date: props.weekBeginning,
+            items: [...selected]
+        };
+        if (archive) {
+            if (archive[0].date === thisWeek.date) {
+                archive[0] = thisWeek;
+            } else {
+                archive.unshift(thisWeek);
+            }
+        } else {
+            archive = [];
+            archive.unshift(thisWeek);
+        }
+        localStorage.setItem('archive', JSON.stringify(archive));
+    }
 
     return (
         <div className='week'>
