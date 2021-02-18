@@ -36,7 +36,7 @@ export default function Archive(props) {
             <h1>
                 Archive
             </h1>
-            <button onClick={doArchiveUpdate}>UPDATE</button>
+            <button onClick={doArchiveUpdate} style={{background: 'blue'}}>UPDATE</button>
             {archive.map((week, i) =>
                 <ArchiveWeek
                     key={'archiveWeek' + i}
