@@ -114,17 +114,9 @@ export default function ArrangeWeek(props) {
         localStorage.setItem('archive', JSON.stringify(archive));
     }
 
-    function tempDeleteDupes() {
-        let archive = JSON.parse(localStorage.getItem('archive'));
-        archive = archive.filter(w => w !== archive[3]);
-        archive = archive.filter(w => w !== archive[2]);
-        localStorage.setItem('archive', JSON.stringify(archive));
-    }
-
     return (
         <div className='week'>
             <section>
-                <button onClick={tempDeleteDupes}>23</button>
                 <table>
                     <thead>
                     <tr>
