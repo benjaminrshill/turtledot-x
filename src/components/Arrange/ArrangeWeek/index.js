@@ -81,7 +81,7 @@ export default function ArrangeWeek(props) {
         }
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
-        updateArchive();
+        if (props.isThisWeek) updateArchive();
     }
 
     function saveTodo(event) {
@@ -91,7 +91,7 @@ export default function ArrangeWeek(props) {
         item[1][day] = event.target.value === '' ? -1 : +event.target.value;
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
-        updateArchive();
+        if (props.isThisWeek) updateArchive();
     }
 
     function updateArchive() {
@@ -101,8 +101,9 @@ export default function ArrangeWeek(props) {
             items: [...selected]
         };
         if (archive) {
-            if (archive[0].date === thisWeek.date) {
-                archive[0] = thisWeek;
+            let index = archive.findIndex(week => week.date === thisWeek.date);
+            if (index !== -1) {
+                archive[index] = thisWeek;
             } else {
                 archive.unshift(thisWeek);
             }
@@ -113,9 +114,17 @@ export default function ArrangeWeek(props) {
         localStorage.setItem('archive', JSON.stringify(archive));
     }
 
+    function tempDeleteDupes() {
+        let archive = JSON.parse(localStorage.getItem('archive'));
+        archive = archive.filter(w => w !== archive[3]);
+        archive = archive.filter(w => w !== archive[2]);
+        localStorage.setItem('archive', JSON.stringify(archive));
+    }
+
     return (
         <div className='week'>
             <section>
+                <button onClick={tempDeleteDupes}>23</button>
                 <table>
                     <thead>
                     <tr>
