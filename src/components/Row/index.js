@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
+import Cell from '../Cell';
 import cutNumber from '../../functions/cutNumber';
 import './row.css';
 
 export default function Row(props) {
 
     const [todo, editTodo] = useState([...props.todo]);
-    const [editing, switchEditing] = useState(false);
     const [row, editRow] = useState({
         currentTotal: 0,
         avgTodo: 0,
@@ -26,7 +26,7 @@ export default function Row(props) {
         props.todo.forEach(day => day > -1 ? numberToDo.push(+day) : null);
         const currentTotal = numberToDo.reduce((a, b) => a + b, 0);
         const allDone = currentTotal >= +props.number;
-        const avgTodo = props.number / numberToDo.length;
+        const avgTodo = (+props.number - currentTotal) / numberToDo.length;
         const tooHigh = numberToDo.length > +props.number;
         const tooLow = numberToDo.length < +props.number;
         const cutNum = cutNumber(+props.number);
@@ -50,17 +50,6 @@ export default function Row(props) {
         let newTodo = [...todo];
         newTodo[event.target.dataset.day] = event.target.value;
         editTodo([...newTodo]);
-    }
-
-    function saveTodo(event) {
-        if (validateTodo(event.target.value)) {
-            props.onSaveTodo(event);
-            switchEditing(false);
-        }
-    }
-
-    function validateTodo(day) {
-        return (day > -2 && day < 100001) || day === '';
     }
 
     return (
@@ -94,38 +83,22 @@ export default function Row(props) {
                 {cutNumber(row.allDone ? row.currentTotal : row.goalNum > -1 ? row.goalNum : props.number)}
             </td>
             {todo.map((day, i) =>
-                <td
-                    key={i + props.id + props.weekBeginning}
-                    data-id={props.id}
-                    data-item={props.index}
-                    data-day={i}
-                    data-week={props.weekBeginning}
-                    onClick={props.type ? props.onChangeDay : props.isThisWeek ? () => switchEditing(true) : props.onChangeDay}
-                    className={'main-cell week-spots' + (props.isThisWeek && row.today === i ? props.color : '')}>
-                    {editing ?
-                        <input
-                            type='number'
-                            min='-1'
-                            max='100000'
-                            data-id={props.id}
-                            data-item={props.index}
-                            data-day={i}
-                            data-week={props.weekBeginning}
-                            value={day > -1 ? day : ''}
-                            className={'type-cell' + (day === 0 ? ' grey' : '')}
-                            onChange={handleNumber}
-                            onBlur={saveTodo}
-                        />
-                        :
-                        <div
-                            className={props.type ?
-                                ('spot' + (day === 1 ? ' closed' : day === 0 ? ' open' : ''))
-                                :
-                                ('type-cell' + (day === 0 ? ' grey' : ''))}>
-                            {!props.type && day > 0 ? day : !props.type && day > -1 ? cutNumber(row.avgTodo) : ''}
-                        </div>
-                    }
-                </td>
+                <Cell
+                    key={props.number + props.id + i}
+                    id={props.id}
+                    day={day}
+                    index={i}
+                    rowIndex={props.index}
+                    today={row.today}
+                    avgTodo={row.avgTodo > 0 ? row.avgTodo : null}
+                    type={props.type}
+                    color={props.color}
+                    weekBeginning={props.weekBeginning}
+                    isThisWeek={props.isThisWeek}
+                    onHandleNumber={handleNumber}
+                    onSaveTodo={props.onSaveTodo}
+                    onChangeDay={props.onChangeDay}
+                />
             )}
         </tr>
     );

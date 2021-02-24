@@ -29,6 +29,10 @@ td {
     color: #797979;
 }
 
+.editing {
+    outline: 1px solid black;
+}
+
 .main-cell input {
     appearance: none;
     -moz-appearance: textfield;
