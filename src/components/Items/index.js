@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import Item from './Item';
 import UpdateItem from './UpdateItem';
-import {v4 as uuidv4} from 'uuid';
 import sortColor from '../../functions/sortColor';
 import {colors} from '../../static/colors';
 import './items.css';
+import {v4 as uuidv4} from 'uuid';
 import {Plus} from 'react-feather';
 
 export default function Items() {

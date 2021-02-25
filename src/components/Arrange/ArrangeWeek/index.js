@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Row from '../../Row';
 import '../arrange.css';
-
-let touchData = {};
+import {days} from "../../../static/colors";
 
 export default function ArrangeWeek(props) {
 
@@ -59,17 +58,6 @@ export default function ArrangeWeek(props) {
         }
     }
 
-    // function copyAllFromThisWeek () {
-    //     if (localStorage.getItem(props.thisWeekBeginning)) {
-    //         let newWeek = {...week};
-    //         let thisWeek = JSON.parse(localStorage.getItem(props.thisWeekBeginning));
-    //         if (!newWeek) newWeek = {date: props.weekBeginning, items: []};
-    //         newWeek.items = [...thisWeek.items];
-    //         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
-    //         editWeek({...newWeek});
-    //     }
-    // }
-
     function changeDay(event) {
         let newWeek = {...week};
         let item = newWeek.items.find(item => item[0] === event.currentTarget.dataset.id);
@@ -84,11 +72,10 @@ export default function ArrangeWeek(props) {
         if (props.isThisWeek) updateArchive();
     }
 
-    function saveTodo(event) {
+    function saveTodo(id, day, value) {
         let newWeek = {...week};
-        let item = newWeek.items.find(item => item[0] === event.currentTarget.dataset.id);
-        let day = event.currentTarget.dataset.day;
-        item[1][day] = event.target.value === '' ? -1 : +event.target.value;
+        let item = newWeek.items.find(item => item[0] === id);
+        item[1][day] = value;
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
         if (props.isThisWeek) updateArchive();
@@ -129,66 +116,55 @@ export default function ArrangeWeek(props) {
                             <td
                                 key={day + i + props.weekBeginning}
                                 className='day'>
-                                {day}
+                                {day.substring(0,1)}
                             </td>
                         )}
                     </tr>
                     </thead>
                     <tbody data-dragweek={props.weekBeginning}>
-                    {selected.map((item, i) =>
-                        <Row
-                            key={item.id + props.weekBeginning}
-                            id={item.id}
-                            index={i}
-                            text={item.text}
-                            type={item.type}
-                            number={item.number}
-                            color={item.color}
-                            todo={item.todo}
-                            isThisWeek={props.isThisWeek}
-                            weekBeginning={props.weekBeginning}
-                            onRemoveItem={removeItemFromWeek}
-                            onChangeDay={changeDay}
-                            onSaveTodo={saveTodo}
-                            // onDragStart={onDragStart}
-                            // onDragOver={onDragOver}
-                            // onDragLeave={onDragLeave}
-                            // onDrop={onDrop}
-                        />
-                    )}
+                        {selected.map((item, i) =>
+                            <Row
+                                key={item.id + props.weekBeginning}
+                                id={item.id}
+                                index={i}
+                                text={item.text}
+                                type={item.type}
+                                number={item.number}
+                                color={item.color}
+                                todo={item.todo}
+                                isThisWeek={props.isThisWeek}
+                                weekBeginning={props.weekBeginning}
+                                days={days}
+                                onRemoveItem={removeItemFromWeek}
+                                onChangeDay={changeDay}
+                                onSaveTodo={saveTodo}
+                            />
+                        )}
                     </tbody>
                 </table>
             </section>
             {unselected.length > 0 &&
-            <div className='edit-box'>
-                {/*{selected.length < 1 && props.weekName === 'Next Week' &&*/}
-                {/*    <button*/}
-                {/*        className='addAllItems copy'*/}
-                {/*        onClick={copyAllFromThisWeek}*/}
-                {/*    >*/}
-                {/*        copy schedule from this week*/}
-                {/*    </button>*/}
-                {/*}*/}
-                <button
-                    className='addAllItems'
-                    onClick={addAllItemsToWeek}
-                >
-                    add all items
-                </button>
-                <div className='items-list'>
-                    {unselected.map(item =>
-                        <button
-                            key={item.id + props.weekBeginning + 'u'}
-                            value={item.id}
-                            data-week={props.weekBeginning}
-                            className={'items-list-item ' + item.color}
-                            onClick={addItemToWeek}
-                        >
-                            {item.text}
-                        </button>
-                    )}
+                <div className='edit-box'>
+                    <button
+                        className='addAllItems'
+                        onClick={addAllItemsToWeek}
+                    >
+                        add all items
+                    </button>
+                    <div className='items-list'>
+                        {unselected.map(item =>
+                            <button
+                                key={item.id + props.weekBeginning + 'u'}
+                                value={item.id}
+                                data-week={props.weekBeginning}
+                                className={'items-list-item ' + item.color}
+                                onClick={addItemToWeek}
+                            >
+                                {item.text}
+                            </button>
+                        )}
+                    </div>
                 </div>
-            </div>
             }
         </div>
     );

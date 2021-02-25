@@ -32,3 +32,22 @@
 .addAllItems.copy {
     background: #240050;
 }
+
+.week {
+    margin: 0 auto 5vh auto;
+}
+
+.week-date {
+    border: none;
+}
+
+.week-date div {
+    height: 4rem;
+    font-family: var(--main-font);
+    font-weight: 400;
+    font-size: 2.5rem;
+    line-height: 4rem;
+    padding: 0;
+    background: var(--base-color);
+    border: none;
+}

@@ -46,12 +46,6 @@ export default function Row(props) {
         });
     }
 
-    function handleNumber(event) {
-        let newTodo = [...todo];
-        newTodo[event.target.dataset.day] = event.target.value;
-        editTodo([...newTodo]);
-    }
-
     return (
         <tr
             draggable={!props.archive}
@@ -60,10 +54,6 @@ export default function Row(props) {
             data-dragid={props.id}
             data-dragweek={props.weekBeginning}
             className={row.allDone ? 'allDone' : props.color}
-            // onDragStart={props.onDragStart}
-            // onDragOver={props.onDragOver}
-            // onDragLeave={props.onDragLeave}
-            // onDrop={props.onDrop}
         >
             <td
                 id={props.id}
@@ -93,9 +83,10 @@ export default function Row(props) {
                     avgTodo={row.avgTodo > 0 ? row.avgTodo : null}
                     type={props.type}
                     color={props.color}
-                    weekBeginning={props.weekBeginning}
                     isThisWeek={props.isThisWeek}
-                    onHandleNumber={handleNumber}
+                    weekBeginning={props.weekBeginning}
+                    dayOfWeek={props.days[i]}
+                    text={props.text}
                     onSaveTodo={props.onSaveTodo}
                     onChangeDay={props.onChangeDay}
                 />

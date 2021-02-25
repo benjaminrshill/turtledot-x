@@ -1,0 +1,96 @@
+.main-cell {
+    width: 5rem;
+}
+
+.type-cell {
+    width: 100%;
+    height: 100%;
+    font-size: 2rem;
+}
+
+.type-cell.grey {
+    color: #797979;
+}
+
+.week-spots {
+    background: rgba(255,255,255,0.5);
+}
+
+.spot.grey {
+    opacity: 0.4;
+}
+
+.spot.open {
+    border: var(--main-border);
+    background: var(--high-color);
+}
+
+.spot.closed {
+    border: var(--main-border);
+    background: var(--line-color);
+}
+
+.allDone .spot.closed {
+    border: #1dff75;
+    background: #1dff75;
+}
+
+.number-modal {
+    position: fixed;
+    top: 25vh;
+    left: 0;
+    right: 0;
+    width: 90%;
+    padding: 30px;
+    color: var(--line-color);
+    background: var(--high-color);
+    box-shadow: var(--main-shadow);
+}
+
+.number-modal h3 {
+    font-size: large;
+}
+
+.number-modal label {
+    font-size: large;
+}
+
+.number-modal fieldset {
+    border: 0;
+}
+
+.number-modal fieldset div {
+    text-align: left;
+}
+
+.number-modal input[type='radio'] {
+    margin: 10px;
+}
+
+.number-modal input[type='number'] {
+    appearance: none;
+    -moz-appearance: textfield;
+    display: block;
+    height: 30px;
+    font-size: large;
+    border: var(--main-border);
+}
+
+.number-modal-bg {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+.save-todo {
+    width: 40%;
+    margin: 20px;
+    color: #fff;
+    background: #868fd9;
+    border-radius: 5px;
+}

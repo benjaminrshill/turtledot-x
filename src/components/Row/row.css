@@ -15,52 +15,6 @@ td {
     box-shadow: var(--main-shadow);
 }
 
-.main-cell {
-    width: 5rem;
-}
-
-.type-cell, input.type-cell {
-    width: 100%;
-    height: 100%;
-    font-size: 2rem;
-}
-
-.type-cell.grey, input.type-cell.grey {
-    color: #797979;
-}
-
-.editing {
-    outline: 1px solid black;
-}
-
-.main-cell input {
-    appearance: none;
-    -moz-appearance: textfield;
-    width: 100%;
-    font-size: small;
-    background: transparent;
-    border: 0;
-}
-
-.week {
-    margin: 0 auto 5vh auto;
-}
-
-.week-date {
-    border: none;
-}
-
-.week-date div {
-    height: 4rem;
-    font-family: var(--main-font);
-    font-weight: 400;
-    font-size: 2.5rem;
-    line-height: 4rem;
-    padding: 0;
-    background: var(--base-color);
-    border: none;
-}
-
 .day {
     width: 5rem;
     background: var(--high-color);
@@ -88,38 +42,9 @@ td {
     background: rgba(255, 0, 0, 0.4) url('../../components/Arrange/alerts/arrowDown.svg') center/cover;
 }
 
-.week-spots {
-    background: rgba(255,255,255,0.5);
-}
-
-.allDone, .allDone .week-spots, .allDone input {
+.allDone, .allDone .week-spots {
     color: var(--high-color);
     background: var(--line-color);
-}
-
-.spot {
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 100%;
-}
-
-.spot.grey {
-    opacity: 0.4;
-}
-
-.spot.open {
-    border: var(--main-border);
-    background: var(--high-color);
-}
-
-.spot.closed {
-    border: var(--main-border);
-    background: var(--line-color);
-}
-
-.allDone .spot.closed {
-    border: #1dff75;
-    background: #1dff75;
 }
 
 .scooch {
