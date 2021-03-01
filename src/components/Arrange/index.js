@@ -1,6 +1,6 @@
 import React from 'react';
 import ArrangeWeek from './ArrangeWeek';
-import {days} from '../../static/colors';
+import {days} from '../../static/colorsDays';
 import './arrange.css';
 
 export default function Arrange() {
@@ -11,7 +11,7 @@ export default function Arrange() {
     function getWeekBeginning(addWeek = 0) {
         let newDate = new Date(),
             day = newDate.getDay();
-        function padZero(n) { return n < 10 ? '0' + n : n}
+        function padZero(n) { return n < 10 ? '0' + n : n }
         if (day > 1) {
             newDate.setDate(newDate.getDate() - day + 1 + addWeek);
         } else if (day === 0) {

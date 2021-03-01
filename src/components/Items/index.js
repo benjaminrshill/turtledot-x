@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Item from './Item';
 import UpdateItem from './UpdateItem';
 import sortColor from '../../functions/sortColor';
-import {colors} from '../../static/colors';
+import {colorsDays} from '../../static/colorsDays';
 import './items.css';
 import {v4 as uuidv4} from 'uuid';
 import {Plus} from 'react-feather';
@@ -50,7 +50,7 @@ export default function Items() {
                 <Item
                     key={item.id}
                     item={item}
-                    colors={colors}
+                    colors={colorsDays}
                     currentlyAdding={adding}
                     onDeleteItem={deleteItem}
                     onCancelNewItem={() => switchAdding(false)}
@@ -58,7 +58,7 @@ export default function Items() {
             )}
             {adding ?
                 <UpdateItem
-                    colors={colors}
+                    colors={colorsDays}
                     onUpdateItem={addItem}
                     onCancelUpdate={() => switchAdding(false)}
                 />

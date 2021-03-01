@@ -85,7 +85,7 @@ export default function Row(props) {
                     color={props.color}
                     isThisWeek={props.isThisWeek}
                     weekBeginning={props.weekBeginning}
-                    dayOfWeek={props.days[i]}
+                    dayOfWeek={!props.archive && props.days[i]}
                     text={props.text}
                     onSaveTodo={props.onSaveTodo}
                     onChangeDay={props.onChangeDay}

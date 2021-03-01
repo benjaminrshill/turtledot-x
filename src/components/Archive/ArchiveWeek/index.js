@@ -18,7 +18,7 @@ export default function ArchiveWeek(props) {
                             <td
                                 key={day + i + props.week.date}
                                 className='day'>
-                                {day}
+                                {day.substring(0,1)}
                             </td>
                         )}
                     </tr>

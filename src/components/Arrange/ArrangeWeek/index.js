@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Row from '../../Row';
 import '../arrange.css';
-import {days} from "../../../static/colors";
+import {days} from '../../../static/colorsDays';
 
 export default function ArrangeWeek(props) {
 
