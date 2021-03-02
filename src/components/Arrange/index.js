@@ -1,12 +1,21 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import ArrangeWeek from './ArrangeWeek';
 import {days} from '../../static/colorsDays';
 import './arrange.css';
 
 export default function Arrange() {
 
-    const thisWeekBeginning = getWeekBeginning();
-    const nextWeekBeginning = getWeekBeginning(7);
+    const [dateToday, updateDateToday] = useState(new Date());
+    const [thisWeekBeginning, updateThisWeekBeginning] = useState(getWeekBeginning());
+    const [nextWeekBeginning, updateNextWeekBeginning] = useState(getWeekBeginning(7));
+
+    useEffect(() => updateThisWeekBeginning(getWeekBeginning()), [dateToday]);
+    useEffect(() => updateNextWeekBeginning(getWeekBeginning(7)), [dateToday]);
+
+    setInterval(() => {
+        const newDate = new Date();
+        if (newDate.getDate() !== dateToday.getDate()) updateDateToday(newDate);
+    }, 60000);
 
     function getWeekBeginning(addWeek = 0) {
         let newDate = new Date(),
