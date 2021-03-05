@@ -37,10 +37,10 @@
 
 .number-modal {
     position: fixed;
-    top: 25vh;
+    top: 5vw;
     left: 0;
     right: 0;
-    width: 90%;
+    width: 90vw;
     padding: 30px;
     color: var(--line-color);
     background: var(--high-color);

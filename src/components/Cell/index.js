@@ -14,6 +14,10 @@ export default function Cell(props) {
         }
     }
 
+    function checkKey(event) {
+        if (event.key === 'Enter') validateTodo();
+    }
+
     function openModal(event) {
         if (event.target.classList.contains('main-cell') || event.target.classList.contains('type-cell')) switchEditing(true);
     }
@@ -88,6 +92,7 @@ export default function Cell(props) {
                             max='100000'
                             value={editedValue}
                             onChange={event => changeEditedValue(+event.target.value)}
+                            onKeyDown={event => checkKey(event)}
                         />
                         <button
                             onClick={validateTodo}

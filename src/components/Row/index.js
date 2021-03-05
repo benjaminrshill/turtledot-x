@@ -22,13 +22,17 @@ export default function Row(props) {
     useEffect(() => doNumbers(), [props]);
 
     function doNumbers() {
+        let numberDoneAndToDo = [];
         let numberToDo = [];
-        props.todo.forEach(day => day > -1 ? numberToDo.push(+day) : null);
-        const currentTotal = numberToDo.reduce((a, b) => a + b, 0);
+        props.todo.forEach(day => {
+            if (day > -1) numberDoneAndToDo.push(+day);
+            if (day === 0) numberToDo.push(+day);
+        });
+        const currentTotal = numberDoneAndToDo.reduce((a, b) => a + b, 0);
         const allDone = currentTotal >= +props.number;
         const avgTodo = (+props.number - currentTotal) / numberToDo.length;
-        const tooHigh = numberToDo.length > +props.number;
-        const tooLow = numberToDo.length < +props.number;
+        const tooHigh = numberDoneAndToDo.length > +props.number;
+        const tooLow = numberDoneAndToDo.length < +props.number;
         const cutNum = cutNumber(+props.number);
         const goalNum = cutNumber(+props.number - currentTotal);
         const originalDay = new Date().getDay();
