@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Item from './Item';
 import UpdateItem from './UpdateItem';
-import sortColor from '../../functions/sortColor';
+import getStoredItems from '../../functions/getStoredItems';
 import {colorsDays} from '../../static/colorsDays';
 import './items.css';
 import {v4 as uuidv4} from 'uuid';
@@ -9,14 +9,8 @@ import {Plus} from 'react-feather';
 
 export default function Items() {
 
-    const [items, editItems] = useState(getItems());
+    const [items, editItems] = useState(getStoredItems());
     const [adding, switchAdding] = useState(false);
-
-    function getItems() {
-        if (localStorage.getItem('items')) {
-            return sortColor(JSON.parse(localStorage.getItem('items')));
-        } else return [];
-    }
 
     function addItem(data) {
         let item = {

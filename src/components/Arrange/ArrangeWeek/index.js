@@ -1,21 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import Row from '../../Row';
+import getStoredItems from '../../../functions/getStoredItems';
+import getStoredWeek from '../../../functions/getStoredWeek';
 import '../arrange.css';
 import {days} from '../../../static/colorsDays';
 
 export default function ArrangeWeek(props) {
 
-    const [week, editWeek] = useState(JSON.parse(localStorage.getItem(props.weekBeginning)));
-    const [unselected, editUnselected] = useState(JSON.parse(localStorage.getItem('items')));
+    const [week, editWeek] = useState(getStoredWeek(props.weekBeginning));
+    const [unselected, editUnselected] = useState(getStoredItems());
     const [selected, editSelected] = useState([]);
 
     useEffect(() => createWeek(), [week]);
 
     async function createWeek() {
         let createSelected = [];
-        let createUnselected = JSON.parse(localStorage.getItem('items'));
-        let newWeek = await JSON.parse(localStorage.getItem(props.weekBeginning));
-        if (newWeek) {
+        let createUnselected = getStoredItems();
+        let newWeek = await getStoredWeek(props.weekBeginning);
+        if (newWeek.items) {
             newWeek.items.forEach(item => {
                 let index = createUnselected.findIndex(uItem => uItem.id === item[0]);
                 if (index > -1) {
@@ -31,9 +33,7 @@ export default function ArrangeWeek(props) {
 
     function addItemToWeek(event) {
         let newWeek = {...week};
-        console.log(newWeek)
         if (newWeek.items === undefined) newWeek = {date: props.weekBeginning, items: []};
-        console.log(newWeek)
         newWeek.items.push([event.target.value, [-1, -1, -1, -1, -1, -1, -1]]);
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
