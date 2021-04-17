@@ -14,7 +14,11 @@ export default function Arrange() {
 
     setInterval(() => {
         const newDate = new Date();
-        if (newDate.getDate() !== dateToday.getDate()) updateDateToday(newDate);
+        if (newDate.getDay() === 0 && dateToday.getDay() === 6) {
+            window.location.reload();
+        } else if (newDate.getDate() !== dateToday.getDate()) {
+            updateDateToday(newDate);
+        }
     }, 60000);
 
     function getWeekBeginning(addWeek = 0) {
