@@ -80,7 +80,7 @@ export default function Cell(props) {
                                         name='numberValues'
                                         value={editedValue}
                                         checked={+editedValue > 0}
-                                        onChange={() => changeEditedValue(editedValue > 0 ? null : 1)}
+                                        onChange={editedValue < 1 ? () => changeEditedValue(cutNumber(props.avgTodo)) : null}
                                     />
                                     number done today:
                                 </label>
@@ -91,6 +91,7 @@ export default function Cell(props) {
                             min='-1'
                             max='100000'
                             value={editedValue}
+                            onFocus={editedValue < 1 ? () => changeEditedValue(cutNumber(props.avgTodo)) : null}
                             onChange={event => changeEditedValue(+event.target.value)}
                             onKeyDown={event => checkKey(event)}
                         />

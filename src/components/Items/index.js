@@ -29,7 +29,7 @@ export default function Items() {
     function deleteItem(event) {
         if (window.confirm('Really delete?')) {
             let newItems = [...items];
-            let filtered = newItems.filter(item => item.id !== event.target.value);
+            let filtered = newItems.filter(item => item.id !== event.currentTarget.value);
             localStorage.setItem('items', JSON.stringify(filtered));
             editItems([...filtered]);
         }
