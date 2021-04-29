@@ -62,7 +62,7 @@ export default function Row(props) {
             <td
                 id={props.id}
                 className='week-item left-column'>
-                {!props.archive &&
+                {!props.archive && props.deleting &&
                     <button
                         value={props.id}
                         onClick={props.onRemoveItem}

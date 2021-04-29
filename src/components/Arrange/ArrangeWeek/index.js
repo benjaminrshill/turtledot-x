@@ -4,12 +4,14 @@ import getStoredItems from '../../../functions/getStoredItems';
 import getStoredWeek from '../../../functions/getStoredWeek';
 import '../arrange.css';
 import {days} from '../../../static/colorsDays';
+import {Trash, Trash2} from 'react-feather';
 
 export default function ArrangeWeek(props) {
 
     const [week, editWeek] = useState(getStoredWeek(props.weekBeginning));
     const [unselected, editUnselected] = useState(getStoredItems());
     const [selected, editSelected] = useState([]);
+    const [deleting, switchDeleting] = useState(false);
 
     useEffect(() => createWeek(), [week]);
 
@@ -108,6 +110,20 @@ export default function ArrangeWeek(props) {
 
     return (
         <div className='week'>
+            <div className='deleteItems'>
+                <input
+                    type='checkbox'
+                    id={'deleteItems' + props.weekBeginning}
+                    onChange={() => switchDeleting(!deleting)}
+                />
+                <label htmlFor={'deleteItems' + props.weekBeginning}>
+                    {deleting ?
+                        <Trash2 size={16} />
+                        :
+                        <Trash size={16} />
+                    }
+                </label>
+            </div>
             <section>
                 <table>
                     <thead>
@@ -140,6 +156,7 @@ export default function ArrangeWeek(props) {
                                 isThisWeek={props.isThisWeek}
                                 weekBeginning={props.weekBeginning}
                                 days={days}
+                                deleting={deleting}
                                 onRemoveItem={removeItemFromWeek}
                                 onChangeDay={changeDay}
                                 onSaveTodo={saveTodo}

@@ -16,6 +16,10 @@ export default function UpdateItem(props) {
 
     const [item, editItem] = useState(itemToPlay);
 
+    function checkKey(event) {
+        if (event.key === 'Enter') updateItem();
+    }
+
     function handleInput (event) {
         let newItem = {...item};
         newItem[event.target.name] = event.target.value;
@@ -49,6 +53,7 @@ export default function UpdateItem(props) {
                     name='text'
                     value={item.text}
                     onChange={handleInput}
+                    onKeyDown={event => checkKey(event)}
                     className='text'
                 />
                 <button
@@ -70,6 +75,7 @@ export default function UpdateItem(props) {
                     max='99999'
                     value={item.number}
                     onChange={handleInput}
+                    onKeyDown={event => checkKey(event)}
                     className='number'
                 />
                 <button
