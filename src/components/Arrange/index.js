@@ -14,7 +14,7 @@ export default function Arrange() {
 
     setInterval(() => {
         const newDate = new Date();
-        if (newDate.getDay() === 0 && dateToday.getDay() === 6) {
+        if (newDate.getDay() === 1 && dateToday.getDay() === 0) {
             window.location.reload();
         } else if (newDate.getDate() !== dateToday.getDate()) {
             updateDateToday(newDate);

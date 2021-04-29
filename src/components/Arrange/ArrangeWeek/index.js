@@ -60,7 +60,8 @@ export default function ArrangeWeek(props) {
 
     function changeDay(event) {
         let newWeek = {...week};
-        let item = newWeek.items.find(item => item[0] === event.currentTarget.dataset.id);
+        let index = newWeek.items.findIndex(item => item[0] === event.currentTarget.dataset.id);
+        let item = newWeek.items[index];
         let day = event.currentTarget.dataset.day;
         if (props.isThisWeek) {
             item[1][day] = (item[1][day] === (-1) ? 0 : item[1][day] === 0 ? 1 : (-1));
@@ -69,36 +70,40 @@ export default function ArrangeWeek(props) {
         }
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
-        if (props.isThisWeek) updateArchive();
+        updateArchive(newWeek, index);
     }
 
     function saveTodo(id, day, value) {
         let newWeek = {...week};
-        let item = newWeek.items.find(item => item[0] === id);
+        let index = newWeek.items.findIndex(item => item[0] === id);
+        let item = newWeek.items[index];
         item[1][day] = value;
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
-        if (props.isThisWeek) updateArchive();
+        updateArchive(newWeek, index);
     }
 
-    function updateArchive() {
-        let archive = JSON.parse(localStorage.getItem('archive'));
-        let thisWeek = {
-            date: props.weekBeginning,
-            items: [...selected]
-        };
-        if (archive) {
-            let index = archive.findIndex(week => week.date === thisWeek.date);
-            if (index !== -1) {
-                archive[index] = thisWeek;
-            } else {
-                archive.unshift(thisWeek);
-            }
-        } else {
-            archive = [];
-            archive.unshift(thisWeek);
+    function updateArchive(newWeek, i) {
+        if (props.isThisWeek) {
+                let archive = JSON.parse(localStorage.getItem('archive'));
+                let thisWeek = {
+                    date: props.weekBeginning,
+                    items: [...selected]
+                };
+                thisWeek.items[i].todo = newWeek.items[i][1];
+                if (archive) {
+                    let index = archive.findIndex(week => week.date === thisWeek.date);
+                    if (index > -1) {
+                        archive[index] = thisWeek;
+                    } else {
+                        archive.unshift(thisWeek);
+                    }
+                } else {
+                    archive = [];
+                    archive.unshift(thisWeek);
+                }
+                localStorage.setItem('archive', JSON.stringify(archive));
         }
-        localStorage.setItem('archive', JSON.stringify(archive));
     }
 
     return (
