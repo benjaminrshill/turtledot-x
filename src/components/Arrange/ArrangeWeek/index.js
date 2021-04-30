@@ -60,9 +60,14 @@ export default function ArrangeWeek(props) {
     }
 
     function moveItemInWeek(event) {
+        let index = +event.currentTarget.value;
+        let newIndex;
         let newWeek = JSON.parse(JSON.stringify(week));
-        const index = event.currentTarget.value;
-        const newIndex = index < newWeek.items.length - 1 ? index + 1 : 0;
+        if (event.currentTarget.dataset.direction === 'up') {
+            newIndex = index > 0 ? index - 1 : newWeek.items.length - 1;
+        } else {
+            newIndex = index < newWeek.items.length - 1 ? index + 1 : 0;
+        }
         newWeek.items.splice(newIndex, 0, newWeek.items.splice(index, 1)[0]);
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});

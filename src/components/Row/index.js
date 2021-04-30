@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Cell from '../Cell';
 import cutNumber from '../../functions/cutNumber';
 import './row.css';
-import {ArrowDown} from 'react-feather';
+import {ArrowUp, ArrowDown} from 'react-feather';
 
 export default function Row(props) {
 
@@ -62,22 +62,32 @@ export default function Row(props) {
         >
             <td
                 id={props.id}
-                className='week-item left-column'>
+                className={'week-item left-column' + (props.shifting ? ' small' : '')}>
                 {!props.archive && props.deleting &&
                     <button
                         value={props.id}
                         onClick={props.onRemoveItem}
-                        className='week-item-delete'>
+                        className='week-item-actions'>
                         &mdash;
                     </button>
                 }
                 {!props.archive && props.shifting &&
-                    <button
-                        value={props.index}
-                        onClick={props.onMoveItem}
-                        className='week-item-delete'>
-                        <ArrowDown size={10} />
-                    </button>
+                    <div>
+                        <button
+                            value={props.index}
+                            data-direction='up'
+                            onClick={props.onMoveItem}
+                            className='week-item-actions'>
+                            <ArrowUp size={10} />
+                        </button>
+                        <button
+                            value={props.index}
+                            data-direction='down'
+                            onClick={props.onMoveItem}
+                            className='week-item-actions'>
+                            <ArrowDown size={10} />
+                        </button>
+                    </div>
                 }
                 {props.text}
             </td>
