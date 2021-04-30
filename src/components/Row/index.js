@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Cell from '../Cell';
 import cutNumber from '../../functions/cutNumber';
 import './row.css';
+import {ArrowDown} from 'react-feather';
 
 export default function Row(props) {
 
@@ -68,6 +69,14 @@ export default function Row(props) {
                         onClick={props.onRemoveItem}
                         className='week-item-delete'>
                         &mdash;
+                    </button>
+                }
+                {!props.archive && props.shifting &&
+                    <button
+                        value={props.index}
+                        onClick={props.onMoveItem}
+                        className='week-item-delete'>
+                        <ArrowDown size={10} />
                     </button>
                 }
                 {props.text}

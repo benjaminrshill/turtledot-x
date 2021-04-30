@@ -4,7 +4,7 @@ import getStoredItems from '../../../functions/getStoredItems';
 import getStoredWeek from '../../../functions/getStoredWeek';
 import '../arrange.css';
 import {days} from '../../../static/colorsDays';
-import {Trash, Trash2} from 'react-feather';
+import {Trash, Trash2, ArrowDown, X} from 'react-feather';
 
 export default function ArrangeWeek(props) {
 
@@ -12,6 +12,7 @@ export default function ArrangeWeek(props) {
     const [unselected, editUnselected] = useState(getStoredItems());
     const [selected, editSelected] = useState([]);
     const [deleting, switchDeleting] = useState(false);
+    const [shifting, switchShifting] = useState(false);
 
     useEffect(() => createWeek(), [week]);
 
@@ -52,12 +53,19 @@ export default function ArrangeWeek(props) {
     }
 
     function removeItemFromWeek(event) {
-        if (window.confirm('Really remove this item from schedule?')) {
-            let newWeek = {...week};
-            newWeek.items = newWeek.items.filter(needle => needle[0] !== event.target.value);
-            localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
-            editWeek({...newWeek});
-        }
+        let newWeek = {...week};
+        newWeek.items = newWeek.items.filter(needle => needle[0] !== event.target.value);
+        localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
+        editWeek({...newWeek});
+    }
+
+    function moveItemInWeek(event) {
+        let newWeek = JSON.parse(JSON.stringify(week));
+        const index = event.currentTarget.value;
+        const newIndex = index < newWeek.items.length - 1 ? index + 1 : 0;
+        newWeek.items.splice(newIndex, 0, newWeek.items.splice(index, 1)[0]);
+        localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
+        editWeek({...newWeek});
     }
 
     function changeDay(event) {
@@ -87,42 +95,54 @@ export default function ArrangeWeek(props) {
 
     function updateArchive(newWeek, i) {
         if (props.isThisWeek) {
-                let archive = JSON.parse(localStorage.getItem('archive'));
-                let thisWeek = {
-                    date: props.weekBeginning,
-                    items: [...selected]
-                };
-                thisWeek.items[i].todo = newWeek.items[i][1];
-                if (archive) {
-                    let index = archive.findIndex(week => week.date === thisWeek.date);
-                    if (index > -1) {
-                        archive[index] = thisWeek;
-                    } else {
-                        archive.unshift(thisWeek);
-                    }
-                } else {
-                    archive = [];
-                    archive.unshift(thisWeek);
-                }
-                localStorage.setItem('archive', JSON.stringify(archive));
+            let archive = JSON.parse(localStorage.getItem('archive'));
+            let thisWeek = {
+                date: props.weekBeginning,
+                items: [...selected]
+            };
+            thisWeek.items[i].todo = newWeek.items[i][1];
+            if (archive) {
+                let index = archive.findIndex(week => week.date === thisWeek.date);
+                index > -1 ? archive[index] = thisWeek : archive.unshift(thisWeek);
+            } else {
+                archive = [];
+                archive.unshift(thisWeek);
+            }
+            localStorage.setItem('archive', JSON.stringify(archive));
         }
     }
 
     return (
         <div className='week'>
-            <div className='deleteItems'>
-                <input
-                    type='checkbox'
-                    id={'deleteItems' + props.weekBeginning}
-                    onChange={() => switchDeleting(!deleting)}
-                />
-                <label htmlFor={'deleteItems' + props.weekBeginning}>
-                    {deleting ?
-                        <Trash2 size={16} />
-                        :
-                        <Trash size={16} />
-                    }
-                </label>
+            <div className='actionsPanel'>
+                <span>
+                    <input
+                        type='checkbox'
+                        id={'deleteItems' + props.weekBeginning}
+                        onChange={() => !shifting && switchDeleting(!deleting)}
+                    />
+                    <label htmlFor={'deleteItems' + props.weekBeginning}>
+                        {deleting ?
+                            <Trash2 size={16} />
+                            :
+                            <Trash size={16} />
+                        }
+                    </label>
+                </span>
+                <span>
+                    <input
+                        type='checkbox'
+                        id={'shiftItems' + props.weekBeginning}
+                        onChange={() => !deleting && switchShifting(!shifting)}
+                    />
+                    <label htmlFor={'shiftItems' + props.weekBeginning}>
+                        {shifting ?
+                            <X size={16} />
+                            :
+                            <ArrowDown size={16} />
+                        }
+                    </label>
+                </span>
             </div>
             <section>
                 <table>
@@ -157,7 +177,9 @@ export default function ArrangeWeek(props) {
                                 weekBeginning={props.weekBeginning}
                                 days={days}
                                 deleting={deleting}
+                                shifting={shifting}
                                 onRemoveItem={removeItemFromWeek}
+                                onMoveItem={moveItemInWeek}
                                 onChangeDay={changeDay}
                                 onSaveTodo={saveTodo}
                             />

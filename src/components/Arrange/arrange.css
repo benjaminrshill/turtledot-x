@@ -52,11 +52,15 @@
     border: none;
 }
 
-.deleteItems {
+.actionsPanel {
     padding: 0 2rem;
     text-align: left;
 }
 
-.deleteItems input {
+.actionsPanel span {
+    margin: 0 1rem 0 0;
+}
+
+.actionsPanel input {
     appearance: none;
 }
