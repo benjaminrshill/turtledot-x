@@ -53,14 +53,25 @@
 }
 
 .actionsPanel {
-    padding: 0 2rem;
+    display: inline-block;
+    float: left;
+    margin: -5em 0.5rem 2rem 2rem;
+    padding: 1rem 0 1rem 1.5rem;
     text-align: left;
+    background: rgba(221, 240, 255, 0.5);
+    border-radius: 3px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.5);
 }
 
 .actionsPanel span {
+    display: inline-block;
     margin: 0 1rem 0 0;
 }
 
 .actionsPanel input {
     appearance: none;
+}
+
+.deg45 {
+    transform: rotate(-45deg);
 }

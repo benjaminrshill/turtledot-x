@@ -4,7 +4,7 @@ import getStoredItems from '../../../functions/getStoredItems';
 import getStoredWeek from '../../../functions/getStoredWeek';
 import '../arrange.css';
 import {days} from '../../../static/colorsDays';
-import {Trash, Trash2, ArrowDown, X} from 'react-feather';
+import {Trash, Trash2, Maximize2, X} from 'react-feather';
 
 export default function ArrangeWeek(props) {
 
@@ -34,11 +34,15 @@ export default function ArrangeWeek(props) {
         editSelected([...createSelected]);
     }
 
+    function saveItem(newWeek) {
+        localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
+    }
+
     function addItemToWeek(event) {
         let newWeek = {...week};
         if (newWeek.items === undefined) newWeek = {date: props.weekBeginning, items: []};
         newWeek.items.push([event.target.value, [-1, -1, -1, -1, -1, -1, -1]]);
-        localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
+        saveItem(newWeek);
         editWeek({...newWeek});
     }
 
@@ -48,14 +52,14 @@ export default function ArrangeWeek(props) {
         unselected.forEach(item => ids.push(item.id));
         if (newWeek.items === undefined) newWeek = {date: props.weekBeginning, items: []};
         ids.forEach(id => newWeek.items.push([id, [-1, -1, -1, -1, -1, -1, -1]]));
-        localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
+        saveItem(newWeek);
         editWeek({...newWeek});
     }
 
     function removeItemFromWeek(event) {
         let newWeek = {...week};
         newWeek.items = newWeek.items.filter(needle => needle[0] !== event.target.value);
-        localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
+        saveItem(newWeek);
         editWeek({...newWeek});
     }
 
@@ -69,7 +73,7 @@ export default function ArrangeWeek(props) {
             newIndex = index < newWeek.items.length - 1 ? index + 1 : 0;
         }
         newWeek.items.splice(newIndex, 0, newWeek.items.splice(index, 1)[0]);
-        localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
+        saveItem(newWeek);
         editWeek({...newWeek});
     }
 
@@ -83,7 +87,7 @@ export default function ArrangeWeek(props) {
         } else {
             item[1][day] = (item[1][day] > (-1) ? (-1) : 0);
         }
-        localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
+        saveItem(newWeek);
         editWeek({...newWeek});
         updateArchive(newWeek, index);
     }
@@ -93,7 +97,7 @@ export default function ArrangeWeek(props) {
         let index = newWeek.items.findIndex(item => item[0] === id);
         let item = newWeek.items[index];
         item[1][day] = value;
-        localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
+        saveItem(newWeek);
         editWeek({...newWeek});
         updateArchive(newWeek, index);
     }
@@ -144,7 +148,7 @@ export default function ArrangeWeek(props) {
                         {shifting ?
                             <X size={16} />
                             :
-                            <ArrowDown size={16} />
+                            <Maximize2 size={14} className='deg45' />
                         }
                     </label>
                 </span>
