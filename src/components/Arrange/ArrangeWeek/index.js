@@ -5,6 +5,7 @@ import getStoredWeek from '../../../functions/getStoredWeek';
 import '../arrange.css';
 import {days} from '../../../static/colorsDays';
 import {Trash, Trash2, Maximize2, X} from 'react-feather';
+import ActionsPanel from "./ActionsPanel";
 
 export default function ArrangeWeek(props) {
 
@@ -13,6 +14,11 @@ export default function ArrangeWeek(props) {
     const [selected, editSelected] = useState([]);
     const [deleting, switchDeleting] = useState(false);
     const [shifting, switchShifting] = useState(false);
+
+    let touchData = {
+        item: null,
+        rect: null,
+    };
 
     useEffect(() => createWeek(), [week]);
 
@@ -63,16 +69,45 @@ export default function ArrangeWeek(props) {
         editWeek({...newWeek});
     }
 
-    function moveItemInWeek(event) {
-        let index = +event.currentTarget.value;
-        let newIndex;
-        let newWeek = JSON.parse(JSON.stringify(week));
-        if (event.currentTarget.dataset.direction === 'up') {
-            newIndex = index > 0 ? index - 1 : newWeek.items.length - 1;
-        } else {
-            newIndex = index < newWeek.items.length - 1 ? index + 1 : 0;
+    function dragStart(event) {
+        touchData.item = event.currentTarget;
+    }
+
+    function dragOver(event) {
+        event.preventDefault();
+        let movingOver = event.currentTarget;
+        let movedParent = movingOver.parentNode;
+        touchData.rect = movingOver.getBoundingClientRect();
+        if (movedParent.dataset.dragweek === movingOver.dataset.dragweek) {
+            if (movingOver === touchData.item) { // prevent dropping on self
+                event.dataTransfer.dropEffect = 'none';
+            } else {
+                event.dataTransfer.dropEffect = 'move';
+                if (event.clientY > touchData.rect.top - 1 || event.clientY < touchData.rect.bottom + 1) {
+                    movingOver.classList.add('scooch');
+                } else {
+                    movingOver.classList.remove('scooch');
+                }
+            }
         }
-        newWeek.items.splice(newIndex, 0, newWeek.items.splice(index, 1)[0]);
+    }
+
+    function dragLeave(event) {
+        if (event.clientY < touchData.rect.top + 1 || event.clientY > touchData.rect.bottom - 1) {
+            event.currentTarget.classList.remove('scooch');
+        }
+    }
+
+    function drop(event) {
+        event.preventDefault();
+        event.currentTarget.parentNode.childNodes.forEach(row => row.classList.remove('scooch'));
+        let droppingOn = event.currentTarget;
+        moveItemInWeek(+touchData.item.dataset.index, +droppingOn.dataset.index);
+    }
+
+    function moveItemInWeek(dragged, dropped) {
+        let newWeek = JSON.parse(JSON.stringify(week));
+        newWeek.items.splice(dropped, 0, newWeek.items.splice(dragged, 1)[0]);
         saveItem(newWeek);
         editWeek({...newWeek});
     }
@@ -123,35 +158,22 @@ export default function ArrangeWeek(props) {
 
     return (
         <div className='week'>
-            <div className='actionsPanel'>
-                <span>
-                    <input
-                        type='checkbox'
-                        id={'deleteItems' + props.weekBeginning}
-                        onChange={() => !shifting && switchDeleting(!deleting)}
-                    />
-                    <label htmlFor={'deleteItems' + props.weekBeginning}>
-                        {deleting ?
-                            <Trash2 size={16} />
-                            :
-                            <Trash size={16} />
-                        }
-                    </label>
-                </span>
-                <span>
-                    <input
-                        type='checkbox'
-                        id={'shiftItems' + props.weekBeginning}
-                        onChange={() => !deleting && switchShifting(!shifting)}
-                    />
-                    <label htmlFor={'shiftItems' + props.weekBeginning}>
-                        {shifting ?
-                            <X size={16} />
-                            :
-                            <Maximize2 size={14} className='deg45' />
-                        }
-                    </label>
-                </span>
+            <div className='week-header'>
+                <ActionsPanel
+                    deleting={deleting}
+                    onSwitchDeleting={switchDeleting}
+                    shifting={shifting}
+                    onSwitchShifting={switchShifting}
+                />
+                {props.weekName === 'This Week' ?
+                    <h1>
+                        {props.weekName}
+                    </h1>
+                    :
+                    <h2>
+                        {props.weekName}
+                    </h2>
+                }
             </div>
             <section>
                 <table>
@@ -188,7 +210,10 @@ export default function ArrangeWeek(props) {
                                 deleting={deleting}
                                 shifting={shifting}
                                 onRemoveItem={removeItemFromWeek}
-                                onMoveItem={moveItemInWeek}
+                                onDragStart={dragStart}
+                                onDragOver={dragOver}
+                                onDragLeave={dragLeave}
+                                onDrop={drop}
                                 onChangeDay={changeDay}
                                 onSaveTodo={saveTodo}
                             />
@@ -199,7 +224,7 @@ export default function ArrangeWeek(props) {
             {unselected.length > 0 &&
                 <div className='edit-box'>
                     <button
-                        className='addAllItems'
+                        className='add-all-items'
                         onClick={addAllItemsToWeek}
                     >
                         add all items

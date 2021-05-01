@@ -1,3 +1,59 @@
+.week {
+    margin: 0 auto 5vh auto;
+}
+
+.week-header {
+    margin: 2rem;
+    padding: 0 0 4rem 0;
+}
+
+.week h1, .week h2 {
+    display: block;
+    float: right;
+    margin: auto;
+    padding: 0.5rem 0;
+    text-align: right;
+}
+
+.actions-panel {
+    display: inline-block;
+    float: left;
+    margin: auto;
+    padding: 1rem 0.5rem 1rem 1.5rem;
+    text-align: left;
+    background: rgba(221, 240, 255, 0.5);
+    border-radius: 3px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.3);
+}
+
+.actions-panel span {
+    display: inline-block;
+    margin: 0 1rem 0 0;
+}
+
+.actions-panel input {
+    appearance: none;
+}
+
+.deg45 {
+    transform: rotate(-45deg);
+}
+
+.week-date {
+    border: none;
+}
+
+.week-date div {
+    height: 4rem;
+    font-family: var(--main-font);
+    font-weight: 400;
+    font-size: 2.5rem;
+    line-height: 4rem;
+    padding: 0;
+    background: var(--base-color);
+    border: none;
+}
+
 .items-list {
     overflow-y: scroll;
     width: 100%;
@@ -22,56 +78,13 @@
     border-bottom: 0;
 }
 
-.addAllItems {
+.add-all-items {
     width: 100%;
     color: var(--base-color);
     background: var(--line-color);
     border-radius: 0;
 }
 
-.addAllItems.copy {
+.add-all-items.copy {
     background: #240050;
-}
-
-.week {
-    margin: 0 auto 5vh auto;
-}
-
-.week-date {
-    border: none;
-}
-
-.week-date div {
-    height: 4rem;
-    font-family: var(--main-font);
-    font-weight: 400;
-    font-size: 2.5rem;
-    line-height: 4rem;
-    padding: 0;
-    background: var(--base-color);
-    border: none;
-}
-
-.actionsPanel {
-    display: inline-block;
-    float: left;
-    margin: -5em 0.5rem 2rem 2rem;
-    padding: 1rem 0 1rem 1.5rem;
-    text-align: left;
-    background: rgba(221, 240, 255, 0.5);
-    border-radius: 3px;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.5);
-}
-
-.actionsPanel span {
-    display: inline-block;
-    margin: 0 1rem 0 0;
-}
-
-.actionsPanel input {
-    appearance: none;
-}
-
-.deg45 {
-    transform: rotate(-45deg);
 }

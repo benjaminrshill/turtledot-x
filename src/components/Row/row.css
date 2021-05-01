@@ -51,7 +51,6 @@ td {
 }
 
 .scooch {
-    box-shadow: -2px -2px 2px 0 var(--line-color);
-    transform: translate(2px, 2px);
-    transition: all ease-in-out;
+    transform: translateX(4rem);
+    transition: all 0.3s ease-in-out;
 }

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Cell from '../Cell';
 import cutNumber from '../../functions/cutNumber';
 import './row.css';
-import {ArrowUp, ArrowDown} from 'react-feather';
+import {Menu} from 'react-feather';
 
 export default function Row(props) {
 
@@ -53,16 +53,20 @@ export default function Row(props) {
 
     return (
         <tr
-            draggable={!props.archive}
+            draggable={!props.archive && props.shifting}
             id={props.id + props.weekBeginning}
             data-index={props.index}
             data-dragid={props.id}
             data-dragweek={props.weekBeginning}
+            onDragStart={props.onDragStart}
+            onDragOver={props.onDragOver}
+            onDragLeave={props.onDragLeave}
+            onDrop={props.onDrop}
             className={row.allDone ? 'allDone' : props.color}
         >
             <td
                 id={props.id}
-                className={'week-item left-column' + (props.shifting ? ' small' : '')}>
+                className={'week-item left-column' + (props.deleting || props.shifting ? ' small' : '')}>
                 {!props.archive && props.deleting &&
                     <button
                         value={props.id}
@@ -75,17 +79,9 @@ export default function Row(props) {
                     <div>
                         <button
                             value={props.index}
-                            data-direction='up'
-                            onClick={props.onMoveItem}
+                            data-draghandle='dragHandle'
                             className='week-item-actions'>
-                            <ArrowUp size={10} />
-                        </button>
-                        <button
-                            value={props.index}
-                            data-direction='down'
-                            onClick={props.onMoveItem}
-                            className='week-item-actions'>
-                            <ArrowDown size={10} />
+                            <Menu size={10} />
                         </button>
                     </div>
                 }

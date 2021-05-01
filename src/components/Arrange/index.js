@@ -37,9 +37,6 @@ export default function Arrange() {
 
     return (
         <main id='arrange'>
-            <h1>
-                This Week
-            </h1>
             <ArrangeWeek
                 key={'thisWeek'}
                 weekName={'This Week'}
@@ -47,9 +44,6 @@ export default function Arrange() {
                 weekBeginning={thisWeekBeginning}
                 isThisWeek={true}
             />
-            <h2>
-                Next Week
-            </h2>
             <ArrangeWeek
                 key={'nextWeek'}
                 weekName={'Next Week'}
