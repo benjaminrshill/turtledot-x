@@ -131,6 +131,7 @@ export default function ArrangeWeek(props) {
         <div className='week'>
             <div className='week-header'>
                 <ActionsPanel
+                    weekBeginning={props.weekBeginning}
                     deleting={deleting}
                     onSwitchDeleting={switchDeleting}
                     shifting={shifting}

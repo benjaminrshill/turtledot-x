@@ -58,10 +58,6 @@ export default function Row(props) {
             data-index={props.index}
             data-dragid={props.id}
             data-dragweek={props.weekBeginning}
-            onDragStart={props.onDragStart}
-            onDragOver={props.onDragOver}
-            onDragLeave={props.onDragLeave}
-            onDrop={props.onDrop}
             className={row.allDone ? 'allDone' : props.color}
         >
             <td
