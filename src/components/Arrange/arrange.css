@@ -7,7 +7,7 @@
     padding: 0 0 4rem 0;
 }
 
-.week h1, .week h2 {
+.week-header h1, .week-header h2 {
     display: block;
     float: right;
     margin: auto;

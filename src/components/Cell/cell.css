@@ -41,39 +41,55 @@
     left: 0;
     right: 0;
     width: 90vw;
-    padding: 30px;
+    padding: 0;
     color: var(--line-color);
-    background: var(--high-color);
+    background: #dee8ff;
     box-shadow: var(--main-shadow);
+}
+
+.number-modal-header {
+    display: flex;
+}
+
+.number-modal h2, .number-modal h3 {
+    display: inline-block;
+    margin: 4rem auto;
 }
 
 .number-modal h3 {
     font-size: large;
 }
 
-.number-modal label {
+.number-modal .options div {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    margin: 5px auto;
+    padding: 10px;
     font-size: large;
+    line-height: 5rem;
+    background: #b1d1ff;
 }
 
-.number-modal fieldset {
-    border: 0;
+.number-modal .options div.selected {
+    background: #69a3ff;
 }
 
-.number-modal fieldset div {
-    text-align: left;
-}
-
-.number-modal input[type='radio'] {
-    margin: 10px;
-}
-
-.number-modal input[type='number'] {
+.number-modal .options div input {
     appearance: none;
     -moz-appearance: textfield;
-    display: block;
+    min-width: 30px;
+    max-width: 25%;
     height: 30px;
+    margin: auto 0;
     font-size: large;
-    border: var(--main-border);
+    background: #93b8f1;
+    border: 1px solid #a6adec;
+    border-radius: 5px;
+}
+
+.number-modal .options div.selected input {
+    background: #4686ea;
 }
 
 .number-modal-bg {
@@ -91,6 +107,6 @@
     width: 40%;
     margin: 20px;
     color: #fff;
-    background: #868fd9;
+    background: #3e74c6;
     border-radius: 5px;
 }

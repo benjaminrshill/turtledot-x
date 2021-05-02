@@ -103,7 +103,7 @@ export default function Row(props) {
                     index={i}
                     rowIndex={props.index}
                     today={row.today}
-                    avgTodo={row.avgTodo > 0 ? row.avgTodo : null}
+                    avgTodo={row.avgTodo}
                     type={props.type}
                     color={props.color}
                     isThisWeek={props.isThisWeek}
