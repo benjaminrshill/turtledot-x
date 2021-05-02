@@ -30,7 +30,7 @@
     background: var(--line-color);
 }
 
-.allDone .spot.closed {
+.all-done .spot.closed {
     border: #1dff75;
     background: #1dff75;
 }

@@ -45,7 +45,7 @@ td {
     background: rgba(255, 0, 0, 0.4) url('../../components/Arrange/alerts/arrowDown.svg') center/cover;
 }
 
-.allDone, .allDone .week-spots {
+.all-done, .all-done .week-spots {
     color: var(--high-color);
     background: var(--line-color);
 }

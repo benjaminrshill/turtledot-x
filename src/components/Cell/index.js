@@ -12,8 +12,6 @@ export default function Cell(props) {
         if (event.target.classList.contains('main-cell') || event.target.classList.contains('type-cell')) switchEditing(true);
     }
 
-    console.log(cutNumber(props.avgTodo));
-
     function updateTodo(value) {
         props.onSaveTodo(props.id, props.index, value);
         switchEditing(false);

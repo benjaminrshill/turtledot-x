@@ -58,7 +58,7 @@ export default function Row(props) {
             data-index={props.index}
             data-dragid={props.id}
             data-dragweek={props.weekBeginning}
-            className={row.allDone ? 'allDone' : props.color}
+            className={row.allDone ? 'all-done' : props.color}
         >
             <td
                 id={props.id}
