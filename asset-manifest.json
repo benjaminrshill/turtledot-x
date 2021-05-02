@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/turtledot-x/static/css/main.5e461280.chunk.css",
-    "main.js": "/turtledot-x/static/js/main.502a0f3c.chunk.js",
-    "main.js.map": "/turtledot-x/static/js/main.502a0f3c.chunk.js.map",
+    "main.css": "/turtledot-x/static/css/main.7d8a6fe1.chunk.css",
+    "main.js": "/turtledot-x/static/js/main.1ce05fb5.chunk.js",
+    "main.js.map": "/turtledot-x/static/js/main.1ce05fb5.chunk.js.map",
     "runtime-main.js": "/turtledot-x/static/js/runtime-main.279180d3.js",
     "runtime-main.js.map": "/turtledot-x/static/js/runtime-main.279180d3.js.map",
     "static/js/2.f8e5711b.chunk.js": "/turtledot-x/static/js/2.f8e5711b.chunk.js",
@@ -10,7 +10,7 @@
     "index.html": "/turtledot-x/index.html",
     "service-worker.js": "/turtledot-x/service-worker.js",
     "service-worker.js.map": "/turtledot-x/service-worker.js.map",
-    "static/css/main.5e461280.chunk.css.map": "/turtledot-x/static/css/main.5e461280.chunk.css.map",
+    "static/css/main.7d8a6fe1.chunk.css.map": "/turtledot-x/static/css/main.7d8a6fe1.chunk.css.map",
     "static/js/2.f8e5711b.chunk.js.LICENSE.txt": "/turtledot-x/static/js/2.f8e5711b.chunk.js.LICENSE.txt",
     "static/media/row.css": "/turtledot-x/static/media/arrowUp.d1f00b13.svg",
     "static/media/turtledot.9f70b9aa.svg": "/turtledot-x/static/media/turtledot.9f70b9aa.svg"
@@ -18,7 +18,7 @@
   "entrypoints": [
     "static/js/runtime-main.279180d3.js",
     "static/js/2.f8e5711b.chunk.js",
-    "static/css/main.5e461280.chunk.css",
-    "static/js/main.502a0f3c.chunk.js"
+    "static/css/main.7d8a6fe1.chunk.css",
+    "static/js/main.1ce05fb5.chunk.js"
   ]
 }
