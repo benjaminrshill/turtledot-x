@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Cell from '../Cell';
 import cutNumber from '../../functions/cutNumber';
 import './row.css';
-import {Menu} from 'react-feather';
+import {ArrowUp, ArrowDown} from 'react-feather';
 
 export default function Row(props) {
 
@@ -76,14 +76,22 @@ export default function Row(props) {
                     </button>
                 }
                 {!props.archive && props.shifting &&
-                    <div>
-                        <button
-                            value={props.index}
-                            data-draghandle='dragHandle'
-                            className='week-item-actions'>
-                            <Menu size={10} />
-                        </button>
-                    </div>
+                <div>
+                    <button
+                        value={props.index}
+                        data-direction='up'
+                        onClick={props.onMoveItem}
+                        className='week-item-actions'>
+                        <ArrowUp size={10} />
+                    </button>
+                    <button
+                        value={props.index}
+                        data-direction='down'
+                        onClick={props.onMoveItem}
+                        className='week-item-actions'>
+                        <ArrowDown size={10} />
+                    </button>
+                </div>
                 }
                 {props.text}
             </td>

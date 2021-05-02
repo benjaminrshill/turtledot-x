@@ -69,46 +69,17 @@ export default function ArrangeWeek(props) {
         editWeek({...newWeek});
     }
 
-    function dragStart(event) {
-        touchData.item = event.currentTarget;
-    }
-
-    function dragOver(event) {
-        event.preventDefault();
-        let movingOver = event.currentTarget;
-        let movedParent = movingOver.parentNode;
-        touchData.rect = movingOver.getBoundingClientRect();
-        if (movedParent.dataset.dragweek === movingOver.dataset.dragweek) {
-            if (movingOver === touchData.item) { // prevent dropping on self
-                event.dataTransfer.dropEffect = 'none';
-            } else {
-                event.dataTransfer.dropEffect = 'move';
-                if (event.clientY > touchData.rect.top - 1 || event.clientY < touchData.rect.bottom + 1) {
-                    movingOver.classList.add('scooch');
-                } else {
-                    movingOver.classList.remove('scooch');
-                }
-            }
-        }
-    }
-
-    function dragLeave(event) {
-        if (event.clientY < touchData.rect.top + 1 || event.clientY > touchData.rect.bottom - 1) {
-            event.currentTarget.classList.remove('scooch');
-        }
-    }
-
-    function drop(event) {
-        event.preventDefault();
-        event.currentTarget.parentNode.childNodes.forEach(row => row.classList.remove('scooch'));
-        let droppingOn = event.currentTarget;
-        moveItemInWeek(+touchData.item.dataset.index, +droppingOn.dataset.index);
-    }
-
-    function moveItemInWeek(dragged, dropped) {
+    function moveItemInWeek(event) {
         let newWeek = JSON.parse(JSON.stringify(week));
-        newWeek.items.splice(dropped, 0, newWeek.items.splice(dragged, 1)[0]);
-        saveItem(newWeek);
+        let index = +event.currentTarget.value;
+        let newIndex;
+        if (event.currentTarget.dataset.direction === 'up') {
+            newIndex = index > 0 ? index - 1 : newWeek.items.length - 1;
+        } else {
+            newIndex = index < newWeek.items.length - 1 ? index + 1 : 0;
+        }
+        newWeek.items.splice(newIndex, 0, newWeek.items.splice(index, 1)[0]);
+        localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
         editWeek({...newWeek});
     }
 
@@ -210,10 +181,7 @@ export default function ArrangeWeek(props) {
                                 deleting={deleting}
                                 shifting={shifting}
                                 onRemoveItem={removeItemFromWeek}
-                                onDragStart={dragStart}
-                                onDragOver={dragOver}
-                                onDragLeave={dragLeave}
-                                onDrop={drop}
+                                onMoveItem={moveItemInWeek}
                                 onChangeDay={changeDay}
                                 onSaveTodo={saveTodo}
                             />
