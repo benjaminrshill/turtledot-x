@@ -31,7 +31,7 @@ export default function Row(props) {
         });
         const currentTotal = numberDoneAndToDo.reduce((a, b) => a + b, 0);
         const allDone = currentTotal >= +props.number;
-        const avgTodo = (+props.number - currentTotal) / numberToDo.length;
+        const avgTodo = numberToDo.length > 0 ? (+props.number - currentTotal) / numberToDo.length : 0;
         const tooHigh = numberDoneAndToDo.length > +props.number;
         const tooLow = numberDoneAndToDo.length < +props.number;
         const cutNum = cutNumber(+props.number);

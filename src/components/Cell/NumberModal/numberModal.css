@@ -1,0 +1,75 @@
+.number-modal {
+    position: fixed;
+    top: 5vw;
+    left: 0;
+    right: 0;
+    width: 90vw;
+    padding: 0;
+    color: var(--line-color);
+    background: var(--base-color);
+    box-shadow: var(--main-shadow);
+}
+
+.number-modal-header {
+    display: flex;
+}
+
+.number-modal h2, .number-modal h3 {
+    display: inline-block;
+    margin: 4rem auto;
+}
+
+.number-modal h3 {
+    font-size: large;
+}
+
+.number-modal .options div {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    margin: 5px auto;
+    padding: 10px;
+    font-size: large;
+    line-height: 5rem;
+    background: #c5ddff;
+}
+
+.number-modal .options div.selected {
+    background: #94bdff;
+}
+
+.number-modal .options div input {
+    appearance: none;
+    -moz-appearance: textfield;
+    min-width: 30px;
+    max-width: 25%;
+    height: 30px;
+    margin: auto 0;
+    font-size: large;
+    background: #94bdff;
+    border: 1px solid #a6adec;
+    border-radius: 5px;
+}
+
+.number-modal .options div.selected input {
+    background: #639fff;
+}
+
+.number-modal-bg {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+.save-todo {
+    width: 40%;
+    margin: 20px;
+    color: #fff;
+    background: #3e74c6;
+    border-radius: 5px;
+}

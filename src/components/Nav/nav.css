@@ -45,12 +45,15 @@ a {
     text-transform: uppercase;
 }
 
-
-.here {
-    color: #1dff75;
-}
-
 .menu-item.here .menu-icon span {
     background: #1dff75;
     border-color: #1dff75;
+}
+
+.menu-item.here .menu-icon svg {
+    stroke: #1dff75;
+}
+
+.menu-item.here .menu-text {
+    color: #1dff75;
 }

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import cutNumber from '../../../functions/cutNumber';
+import './numberModal.css';
 
 export default function NumberModal(props) {
 

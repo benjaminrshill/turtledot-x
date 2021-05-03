@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import './nav.css';
 import {Plus, BookOpen} from 'react-feather';
+import './nav.css';
 
 export default function Nav() {
     return (
@@ -31,14 +31,6 @@ export default function Nav() {
                     Archive
                 </div>
             </NavLink>
-            {/*<NavLink to='/Settings' className='menu-item' activeClassName='here'>*/}
-            {/*    <div className='menu-icon'>*/}
-            {/*        &#8230;*/}
-            {/*    </div>*/}
-            {/*    <div className='menu-text'>*/}
-            {/*        Settings*/}
-            {/*    </div>*/}
-            {/*</NavLink>*/}
         </nav>
     );
 }

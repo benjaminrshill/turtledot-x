@@ -7,7 +7,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: #fff;
+  background: var(--high-color);
   opacity: 0.3;
   box-shadow: var(--main-shadow);
 }
