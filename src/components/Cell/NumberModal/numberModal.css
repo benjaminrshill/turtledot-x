@@ -1,4 +1,6 @@
-.number-modal, .timer {
+.number-modal {
+    position: fixed;
+    z-index: 2;
     top: 0;
     left: 0;
     right: 0;
@@ -9,11 +11,6 @@
     box-shadow: var(--main-shadow);
     border-bottom-left-radius: 4rem;
     border-bottom-right-radius: 4rem;
-}
-
-.number-modal {
-    position: fixed;
-    z-index: 2;
 }
 
 .number-modal h2, .number-modal h3 {
@@ -74,15 +71,6 @@
 
 .number-modal .save-todo svg {
     stroke: var(--high-color);
-}
-
-.number-modal .open-timer {
-    width: 100%;
-    padding: 0 5px;
-    line-height: 6rem;
-    color: #fff;
-    background: #51ff91;
-    border-radius: 5px;
 }
 
 .modal-bg {

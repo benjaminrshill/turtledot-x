@@ -17,7 +17,6 @@ html {
 * {
   font-size: 1.6vw;
   font-family: var(--main-font);
-  color: var(--font-color);
   text-align: center;
   box-sizing: border-box;
   margin: auto;
