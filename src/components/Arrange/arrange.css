@@ -15,7 +15,7 @@
     text-align: right;
 }
 
-.actions-panel {
+.week-header .actions-panel {
     display: inline-block;
     float: left;
     margin: auto;
@@ -26,13 +26,18 @@
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.3);
 }
 
-.actions-panel span {
+.week-header .actions-panel span {
     display: inline-block;
     margin: 0 1rem 0 0;
 }
 
-.actions-panel input {
+.week-header .actions-panel input {
     appearance: none;
+}
+
+.week-header .actions-panel label {
+    cursor: pointer;
+    z-index: 0;
 }
 
 .deg45 {

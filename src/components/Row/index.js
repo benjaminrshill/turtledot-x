@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import Cell from '../Cell';
 import cutNumber from '../../functions/cutNumber';
-import './row.css';
 import {ArrowUp, ArrowDown} from 'react-feather';
+import './row.css';
 
 export default function Row(props) {
 
