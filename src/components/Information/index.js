@@ -7,7 +7,10 @@ export default function Information() {
     const [infoBox, toggleInfoBox] = useState(false);
 
     function checkKey(event) {
-        if (event.key === 'Backspace' || event.key === 'Escape') toggleInfoBox(false);
+        if (event.key === 'Backspace' || event.key === 'Escape') {
+            event.preventDefault();
+            toggleInfoBox(false);
+        }
     }
 
     return (

@@ -19,7 +19,10 @@ export default function NumberModal(props) {
     }
 
     function checkBackspace(event) {
-        if ((event.key === 'Backspace' && event.target.nodeName !== 'INPUT') || event.key === 'Escape') props.onSwitchEditing(false);
+        if ((event.key === 'Backspace' && event.target.nodeName !== 'INPUT') || event.key === 'Escape') {
+            event.preventDefault();
+            props.onSwitchEditing(false);
+        }
     }
 
     function doEstimate() {
