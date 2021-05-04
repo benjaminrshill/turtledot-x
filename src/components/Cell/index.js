@@ -38,7 +38,9 @@ export default function Cell(props) {
                     avgTodo={props.avgTodo}
                     text={props.text}
                     dayOfWeek={props.dayOfWeek}
+                    weekBeginning={props.weekBeginning}
                     onUpdateTodo={updateTodo}
+                    onSwitchEditing={switchEditing}
                 />
             }
         </td>

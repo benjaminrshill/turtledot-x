@@ -14,8 +14,12 @@ export default function NumberModal(props) {
         }
     }
 
-    function checkKey(event) {
+    function checkEnter(event) {
         if (event.key === 'Enter') validateTodo();
+    }
+
+    function checkBackspace(event) {
+        if ((event.key === 'Backspace' && event.target.nodeName !== 'INPUT') || event.key === 'Escape') props.onSwitchEditing(false);
     }
 
     function doEstimate() {
@@ -40,7 +44,7 @@ export default function NumberModal(props) {
                 className='number-modal-bg modal-bg'
             >
             </div>
-            <div className='number-modal'>
+            <div className='number-modal modal' tabIndex='0' onKeyDown={checkBackspace}>
                 <div className='header'>
                     <h2>
                         {props.dayOfWeek}:
@@ -75,7 +79,7 @@ export default function NumberModal(props) {
                             value={inputNumber}
                             onFocus={doEstimate}
                             onChange={event => doChange(+event.target.value)}
-                            onKeyDown={event => checkKey(event)}
+                            onKeyDown={event => checkEnter(event)}
                         />
                     </div>
                 </div>
