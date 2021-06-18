@@ -3,6 +3,15 @@ import NumberModal from './NumberModal';
 import cutNumber from '../../functions/cutNumber';
 import './cell.css';
 
+let posMax = 50;
+let negMax = -50;
+let initialX = 0;
+let moveX = 0;
+let finalX = 0;
+let initialY = 0;
+let moveY = 0;
+let finalY = 0;
+
 export default function Cell(props) {
 
     const [editing, switchEditing] = useState(false);
@@ -17,12 +26,50 @@ export default function Cell(props) {
         switchEditing(false);
     }
 
+    function startTouch(e) {
+        e.preventDefault();
+        initialX = e.touches[0].clientX;
+        initialY = e.touches[0].clientY;
+    }
+
+    function moveTouch(e) {
+        if (initialX === 0 && initialY === 0) return;
+        moveX = e.touches[0].clientX;
+        finalX = initialX - moveX;
+        moveY = e.touches[0].clientY;
+        finalY = initialY - moveY;
+    }
+
+    function endTouch() {
+        if (finalX > posMax && finalY > posMax) {
+            console.log('nw')
+            updateTodo(-1);
+        } else if (finalX < negMax && finalY > posMax) {
+            console.log('ne');
+            updateTodo(0);
+        } else if (finalX < negMax && finalY < negMax) {
+            console.log('se');
+        } else if (finalX > posMax && finalY < negMax) {
+            console.log('sw');
+            updateTodo(1);
+        }
+        initialX = 0;
+        moveX = 0;
+        finalX = 0;
+        initialY = 0;
+        moveY = 0;
+        finalY = 0;
+    }
+
     return (
         <td
             data-id={props.id}
             data-item={props.rowIndex}
             data-day={props.index}
             onClick={props.type ? props.onChangeDay : props.isThisWeek ? openModal : props.onChangeDay}
+            onTouchStart={startTouch}
+            onTouchMove={moveTouch}
+            onTouchEnd={endTouch}
             className={'main-cell week-spots' + (props.isThisWeek && props.today === props.index ? props.color : '')}>
                 <div
                     className={props.type ?
