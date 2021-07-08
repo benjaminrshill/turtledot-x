@@ -27,7 +27,7 @@ body {
   background: linear-gradient(to bottom right, var(--main-bg-color-1), var(--main-bg-color-2)) fixed;
 }
 
-@media screen and (min-height: 800px) {
+@media screen and (orientation: landscape) {
   * {
     font-size: 10px;
   }

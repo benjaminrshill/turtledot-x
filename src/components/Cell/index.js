@@ -42,15 +42,12 @@ export default function Cell(props) {
 
     function endTouch() {
         if (finalX > posMax && finalY > posMax) {
-            console.log('nw')
             updateTodo(-1);
         } else if (finalX < negMax && finalY > posMax) {
-            console.log('ne');
             updateTodo(0);
         } else if (finalX < negMax && finalY < negMax) {
-            console.log('se');
+            updateTodo(-1);
         } else if (finalX > posMax && finalY < negMax) {
-            console.log('sw');
             updateTodo(1);
         }
         initialX = 0;

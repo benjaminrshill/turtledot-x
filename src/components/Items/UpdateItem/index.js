@@ -20,7 +20,7 @@ export default function UpdateItem(props) {
         if (event.key === 'Enter') updateItem();
     }
 
-    function handleInput (event) {
+    function handleInput(event) {
         let newItem = {...item};
         newItem[event.target.name] = event.target.value;
         editItem({...newItem});
