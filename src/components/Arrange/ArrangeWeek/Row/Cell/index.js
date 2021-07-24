@@ -1,46 +1,42 @@
 import React, {useState} from 'react';
+import Modal from '../../../../Modal';
 import NumberModal from './NumberModal';
-import cutNumber from '../../functions/cutNumber';
+import cutNumber from '../../../../../functions/cutNumber';
 import './cell.css';
+import '../../../../Modal/modal.css';
 
 const touchMax = {
     max: {
-        pos: 12,
-        neg: -12
+        pos: 12, neg: -12
     },
     limit: {
-        pos: 10,
-        neg: -10
+        pos: 10, neg: -10
     }
 }
 
 const touch = {
     initial: {
-        X: 0,
-        Y: 0
+        X: 0, Y: 0
     },
     move: {
-        X: 0,
-        Y: 0
+        X: 0, Y: 0
     },
     final: {
-        X: 0,
-        Y: 0
+        X: 0, Y: 0
     }
 }
 
 export default function Cell(props) {
 
-    const [editing, switchEditing] = useState(false);
+    const [editingNumber, switchEditingNumber] = useState(false);
     const avgTodo = props.avgTodo > 0 ? cutNumber(props.avgTodo) : '';
 
     function openModal(event) {
-        if (event.target.classList.contains('main-cell') || event.target.classList.contains('type-cell')) switchEditing(true);
+        if (event.target.classList.contains('main-cell') || event.target.classList.contains('type-cell')) switchEditingNumber(true);
     }
 
     function updateTodo(value) {
         props.onSaveTodo(props.id, props.index, value);
-        switchEditing(false);
     }
 
     function startTouch(e) {
@@ -78,28 +74,36 @@ export default function Cell(props) {
             data-id={props.id}
             data-item={props.rowIndex}
             data-day={props.index}
+            className={'main-cell week-spots' + (props.isThisWeek && props.today === props.index ? props.color : '')}
             onClick={props.type ? props.onChangeDay : props.isThisWeek ? openModal : props.onChangeDay}
             onTouchStart={props.type && props.isThisWeek ? startTouch : null}
             onTouchMove={props.type && props.isThisWeek ? moveTouch : null}
             onTouchEnd={props.type && props.isThisWeek ? endTouch : null}
-            className={'main-cell week-spots' + (props.isThisWeek && props.today === props.index ? props.color : '')}>
-                <div
-                    className={props.type ?
-                        ('spot' + (props.day === 1 ? ' closed' : props.day === 0 ? ' open' : ''))
-                        :
-                        ('type-cell' + (props.day === 0 ? ' grey' : ''))}>
-                    {!props.type && props.day > 0 ? props.day : !props.type && props.day > -1 ? avgTodo : ''}
-                </div>
-            {editing &&
-                <NumberModal
-                    id={props.id}
-                    day={props.day}
-                    avgTodo={props.avgTodo}
-                    text={props.text}
-                    dayOfWeek={props.dayOfWeek}
-                    weekBeginning={props.weekBeginning}
-                    onUpdateTodo={updateTodo}
-                    onSwitchEditing={switchEditing}
+        >
+            <div
+                className={props.type ?
+                    ('spot' + (props.day === 1 ? ' closed' : props.day === 0 ? ' open' : ''))
+                    :
+                    ('type-cell' + (props.day === 0 ? ' grey' : ''))}
+            >
+                {!props.type && props.day > 0 ? props.day : !props.type && props.day > -1 ? avgTodo : ''}
+            </div>
+            {editingNumber &&
+                <Modal
+                    name={'number'}
+                    onSwitchEditing={switchEditingNumber}
+                    modal={
+                        <NumberModal
+                            id={props.id}
+                            day={props.day}
+                            avgTodo={props.avgTodo}
+                            text={props.text}
+                            dayOfWeek={props.dayOfWeek}
+                            weekBeginning={props.weekBeginning}
+                            onUpdateTodo={updateTodo}
+                            onSwitchEditing={switchEditingNumber}
+                        />
+                    }
                 />
             }
         </td>

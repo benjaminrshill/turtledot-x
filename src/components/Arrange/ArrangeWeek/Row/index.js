@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import Cell from '../Cell';
-import cutNumber from '../../functions/cutNumber';
+import Cell from './Cell';
+import cutNumber from '../../../../functions/cutNumber';
 import {ArrowUp, ArrowDown} from 'react-feather';
 import './row.css';
 
@@ -36,8 +36,6 @@ export default function Row(props) {
         const tooLow = numberDoneAndToDo.length < +props.number;
         const cutNum = cutNumber(+props.number);
         const goalNum = cutNumber(+props.number - currentTotal);
-        const originalDay = new Date().getDay();
-        const today = originalDay === 0 ? 6 : originalDay - 1;
         editRow({
             currentTotal: currentTotal,
             avgTodo: avgTodo,
@@ -45,9 +43,7 @@ export default function Row(props) {
             tooLow: tooLow,
             allDone: allDone,
             cutNum: cutNum,
-            goalNum: goalNum,
-            originalDay: originalDay,
-            today: today
+            goalNum: goalNum
         });
     }
 
@@ -102,7 +98,7 @@ export default function Row(props) {
                     day={day}
                     index={i}
                     rowIndex={props.index}
-                    today={row.today}
+                    today={props.today}
                     avgTodo={row.avgTodo}
                     type={props.type}
                     color={props.color}

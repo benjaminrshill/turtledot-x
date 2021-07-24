@@ -9,6 +9,11 @@ export default function Arrange() {
     const [thisWeekBeginning, updateThisWeekBeginning] = useState(getWeekBeginning());
     const [nextWeekBeginning, updateNextWeekBeginning] = useState(getWeekBeginning(7));
 
+    const [ogDayToday, updateOgDayToday] = useState(dateToday.getDay());
+    const [dayToday, updateDayToday] = useState(ogDayToday === 0 ? 6 : ogDayToday - 1);
+
+    useEffect(() => updateOgDayToday(dateToday.getDay()), [dateToday]);
+    useEffect(() => updateDayToday(ogDayToday === 0 ? 6 : ogDayToday - 1), [ogDayToday]);
     useEffect(() => updateThisWeekBeginning(getWeekBeginning()), [dateToday]);
     useEffect(() => updateNextWeekBeginning(getWeekBeginning(7)), [dateToday]);
 
@@ -39,6 +44,7 @@ export default function Arrange() {
         <main id='arrange'>
             <ArrangeWeek
                 key={'thisWeek'}
+                today={dayToday}
                 weekName={'This Week'}
                 days={days}
                 weekBeginning={thisWeekBeginning}
@@ -46,6 +52,7 @@ export default function Arrange() {
             />
             <ArrangeWeek
                 key={'nextWeek'}
+                today={dayToday}
                 weekName={'Next Week'}
                 days={days}
                 weekBeginning={nextWeekBeginning}

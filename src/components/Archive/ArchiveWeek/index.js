@@ -1,5 +1,5 @@
 import React from 'react';
-import Row from '../../Row';
+import Row from '../../Arrange/ArrangeWeek/Row';
 import '../../Arrange/arrange.css';
 
 export default function ArchiveWeek(props) {

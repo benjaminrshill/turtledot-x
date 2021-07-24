@@ -1,12 +1,3 @@
-.number-modal h2, .number-modal h3 {
-    display: inline-block;
-    margin: 4rem 1rem;
-}
-
-.number-modal h3 {
-    font-size: large;
-}
-
 .number-modal .options div {
     display: flex;
     justify-content: space-between;

@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import Row from '../../Row';
+import Row from './Row';
+import ActionsPanel from './ActionsPanel';
+import Modal from '../../Modal';
+import DayModal from './DayModal';
 import getStoredItems from '../../../functions/getStoredItems';
 import getStoredWeek from '../../../functions/getStoredWeek';
 import '../arrange.css';
+import '../../Modal/modal.css';
 import {days} from '../../../static/colorsDays';
-import ActionsPanel from "./ActionsPanel";
 
 export default function ArrangeWeek(props) {
 
@@ -13,6 +16,7 @@ export default function ArrangeWeek(props) {
     const [selected, editSelected] = useState([]);
     const [deleting, switchDeleting] = useState(false);
     const [shifting, switchShifting] = useState(false);
+    const [editingDay, switchEditingDay] = useState(false);
 
     useEffect(() => createWeek(), [week]);
 
@@ -153,8 +157,28 @@ export default function ArrangeWeek(props) {
                         {props.days.map((day, i) =>
                             <td
                                 key={day + i + props.weekBeginning}
-                                className='day'>
+                                className='day'
+                                onClick={event => event.target.classList.contains('day') ? switchEditingDay(day + props.weekBeginning) : null}
+                            >
                                 {day.substring(0,1)}
+                                {editingDay === (day + props.weekBeginning) &&
+                                    <Modal
+                                        name={'day'}
+                                        onSwitchEditing={switchEditingDay}
+                                        modal={
+                                            <DayModal
+                                                key={day + props.weekBeginning + 'dayView'}
+                                                index={i}
+                                                day={day}
+                                                today={props.today}
+                                                isThisWeek={props.isThisWeek}
+                                                weekBeginning={props.weekBeginning}
+                                                selected={selected}
+                                                onSwitchEditing={switchEditingDay}
+                                            />
+                                        }
+                                    />
+                                }
                             </td>
                         )}
                     </tr>
@@ -170,6 +194,7 @@ export default function ArrangeWeek(props) {
                                 number={item.number}
                                 color={item.color}
                                 todo={item.todo}
+                                today={props.today}
                                 isThisWeek={props.isThisWeek}
                                 weekBeginning={props.weekBeginning}
                                 days={days}

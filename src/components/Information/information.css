@@ -26,5 +26,5 @@
 .info-box li.indent {
     list-style-position: inside;
     list-style-type: circle;
-    font-weight: 300;
+    font-weight: var(--font-weight-light);
 }
