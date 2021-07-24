@@ -3,14 +3,31 @@ import NumberModal from './NumberModal';
 import cutNumber from '../../functions/cutNumber';
 import './cell.css';
 
-let posMax = 50;
-let negMax = -50;
-let initialX = 0;
-let moveX = 0;
-let finalX = 0;
-let initialY = 0;
-let moveY = 0;
-let finalY = 0;
+const touchMax = {
+    max: {
+        pos: 12,
+        neg: -12
+    },
+    limit: {
+        pos: 10,
+        neg: -10
+    }
+}
+
+const touch = {
+    initial: {
+        X: 0,
+        Y: 0
+    },
+    move: {
+        X: 0,
+        Y: 0
+    },
+    final: {
+        X: 0,
+        Y: 0
+    }
+}
 
 export default function Cell(props) {
 
@@ -27,35 +44,33 @@ export default function Cell(props) {
     }
 
     function startTouch(e) {
-        e.preventDefault();
-        initialX = e.touches[0].clientX;
-        initialY = e.touches[0].clientY;
+        touch.initial.X = e.touches[0].clientX;
+        touch.initial.Y = e.touches[0].clientY;
     }
 
     function moveTouch(e) {
-        if (initialX === 0 && initialY === 0) return;
-        moveX = e.touches[0].clientX;
-        finalX = initialX - moveX;
-        moveY = e.touches[0].clientY;
-        finalY = initialY - moveY;
+        if (touch.initial.X === 0 && touch.initial.Y === 0) return;
+        touch.move.X = e.touches[0].clientX;
+        touch.final.X = touch.initial.X - touch.move.X;
+        touch.move.Y = e.touches[0].clientY;
+        touch.final.Y = touch.initial.Y - touch.move.Y;
     }
 
     function endTouch() {
-        if (finalX > posMax && finalY > posMax) {
+        if (touch.final.X > touchMax.max.pos && checkVerticalLimit()) {
             updateTodo(-1);
-        } else if (finalX < negMax && finalY > posMax) {
-            updateTodo(0);
-        } else if (finalX < negMax && finalY < negMax) {
-            updateTodo(-1);
-        } else if (finalX > posMax && finalY < negMax) {
+        } else if (touch.final.X < touchMax.max.neg && checkVerticalLimit()) {
             updateTodo(1);
         }
-        initialX = 0;
-        moveX = 0;
-        finalX = 0;
-        initialY = 0;
-        moveY = 0;
-        finalY = 0;
+        for (const t in touch) {
+            for (let v in touch[t]) {
+                touch[t][v] = 0;
+            }
+        }
+    }
+
+    function checkVerticalLimit() {
+        return touch.final.Y < touchMax.limit.pos && touch.final.Y > touchMax.limit.neg;
     }
 
     return (
@@ -64,9 +79,9 @@ export default function Cell(props) {
             data-item={props.rowIndex}
             data-day={props.index}
             onClick={props.type ? props.onChangeDay : props.isThisWeek ? openModal : props.onChangeDay}
-            onTouchStart={startTouch}
-            onTouchMove={moveTouch}
-            onTouchEnd={endTouch}
+            onTouchStart={props.type && props.isThisWeek ? startTouch : null}
+            onTouchMove={props.type && props.isThisWeek ? moveTouch : null}
+            onTouchEnd={props.type && props.isThisWeek ? endTouch : null}
             className={'main-cell week-spots' + (props.isThisWeek && props.today === props.index ? props.color : '')}>
                 <div
                     className={props.type ?

@@ -4,7 +4,6 @@ import getStoredItems from '../../../functions/getStoredItems';
 import getStoredWeek from '../../../functions/getStoredWeek';
 import '../arrange.css';
 import {days} from '../../../static/colorsDays';
-import {Trash, Trash2, Maximize2, X} from 'react-feather';
 import ActionsPanel from "./ActionsPanel";
 
 export default function ArrangeWeek(props) {
@@ -14,11 +13,6 @@ export default function ArrangeWeek(props) {
     const [selected, editSelected] = useState([]);
     const [deleting, switchDeleting] = useState(false);
     const [shifting, switchShifting] = useState(false);
-
-    let touchData = {
-        item: null,
-        rect: null,
-    };
 
     useEffect(() => createWeek(), [week]);
 
