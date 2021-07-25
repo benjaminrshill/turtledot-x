@@ -12,7 +12,7 @@ export default function NumberModal(props) {
         if (currentValue > -2 && currentValue < 100001) {
             props.onUpdateTodo(currentValue);
         }
-        props.onSwitchEditing(false);
+        props.onToggleModal(false);
     }
 
     function checkEnter(event) {

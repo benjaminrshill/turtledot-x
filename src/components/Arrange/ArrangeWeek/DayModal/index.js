@@ -5,6 +5,20 @@ import './dayModal.css';
 export default function DayModal(props) {
 
 	const [whichDay, setDay] = useState(getDay());
+	// const items = useState(getItems());
+
+	// function doIt() {
+	// 	props.selected.forEach(item => item.times = [null, null, null, null, null, null, null]);
+	// }
+	// doIt();
+
+	// function getItems() {
+	// 	props.selected.forEach((item, index) => {
+	// 		if (item.todo[props.index] > -1) {
+	// 			item.times[index] = 0;
+	// 		}
+	// 	});
+	// }
 
 	function getDay() {
 		if (props.isThisWeek) {
@@ -32,12 +46,7 @@ export default function DayModal(props) {
 			</div>
 
 			<div className='items'>
-				{props.selected.map(item =>
-					item.todo[props.index] > -1 &&
-					<div className='item'>
-						{item.name}
-					</div>
-				)}
+
 			</div>
 		</>
 	)

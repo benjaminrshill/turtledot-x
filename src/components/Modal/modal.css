@@ -3,6 +3,7 @@
   z-index: 2;
   width: 95vw;
   max-height: 90vh;
+  overflow-y: scroll;
   top: 0;
   left: 0;
   right: 0;
@@ -10,6 +11,12 @@
   box-shadow: var(--main-shadow);
   border-bottom-left-radius: 4rem;
   border-bottom-right-radius: 4rem;
+  transform: translateY(-100%);
+  transition: transform 0.3s;
+}
+
+.modal.show {
+  transform: translateY(0);
 }
 
 .modal-bg {
@@ -22,6 +29,12 @@
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.5);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.modal-bg.show {
+  opacity: 1;
 }
 
 .modal h2, .modal h3 {

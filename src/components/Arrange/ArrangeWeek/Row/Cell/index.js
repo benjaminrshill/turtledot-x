@@ -91,7 +91,7 @@ export default function Cell(props) {
             {editingNumber &&
                 <Modal
                     name={'number'}
-                    onSwitchEditing={switchEditingNumber}
+                    onToggleModal={switchEditingNumber}
                     modal={
                         <NumberModal
                             id={props.id}
@@ -101,7 +101,7 @@ export default function Cell(props) {
                             dayOfWeek={props.dayOfWeek}
                             weekBeginning={props.weekBeginning}
                             onUpdateTodo={updateTodo}
-                            onSwitchEditing={switchEditingNumber}
+                            onToggleModal={switchEditingNumber}
                         />
                     }
                 />

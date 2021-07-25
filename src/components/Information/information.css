@@ -4,18 +4,12 @@
     right: 10px;
 }
 
-.info-box {
-    height: calc(100vh - 110px);
-    padding: 0 20px 20px 20px;
-    overflow-y: scroll;
-}
-
-.info-box ul {
-    margin: 0 0 40px 10px;
+.info-modal ul {
+    margin: 0 20px 40px 30px;
     padding: 0;
 }
 
-.info-box li, .info-box i {
+.info-modal li, .info-modal i {
     margin: 10px 0;
     padding: 0;
     font-size: 14px;
@@ -23,7 +17,7 @@
     line-height: 18px;
 }
 
-.info-box li.indent {
+.info-modal li.indent {
     list-style-position: inside;
     list-style-type: circle;
     font-weight: var(--font-weight-light);

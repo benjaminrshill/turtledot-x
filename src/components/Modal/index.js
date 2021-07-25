@@ -1,23 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Modal(props) {
+
+	const [show, switchShow] = useState(false);
+
+	useEffect(() => {
+		setTimeout(() => switchShow(true), 10);
+	}, []);
 
 	function checkBackspace(event) {
 		if ((event.key === 'Backspace' && event.target.nodeName !== 'INPUT') || event.key === 'Escape') {
 			event.preventDefault();
-			props.onSwitchEditing(false);
+			props.onToggleModal(false);
 		}
 	}
 
 	return (
 		<>
 			<div
-				className={props.name + '-modal-bg modal-bg'}
-				onClick={() => props.onSwitchEditing(false)}
+				className={props.name + '-modal-bg modal-bg' + (show ? ' show' : '')}
+				onClick={() => props.onToggleModal(false)}
 			>
 			</div>
 			<div
-				className={props.name + '-modal modal'}
+				className={props.name + '-modal modal' + (show ? ' show' : '')}
 				tabIndex='0'
 				onKeyDown={checkBackspace}
 			>

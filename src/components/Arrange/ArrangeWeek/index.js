@@ -8,6 +8,7 @@ import getStoredWeek from '../../../functions/getStoredWeek';
 import '../arrange.css';
 import '../../Modal/modal.css';
 import {days} from '../../../static/colorsDays';
+import AddItems from './AddItems';
 
 export default function ArrangeWeek(props) {
 
@@ -16,6 +17,7 @@ export default function ArrangeWeek(props) {
     const [selected, editSelected] = useState([]);
     const [deleting, switchDeleting] = useState(false);
     const [shifting, switchShifting] = useState(false);
+    const [addingItems, switchAddingItems] = useState(false);
     const [editingDay, switchEditingDay] = useState(false);
 
     useEffect(() => createWeek(), [week]);
@@ -42,20 +44,20 @@ export default function ArrangeWeek(props) {
         localStorage.setItem(props.weekBeginning, JSON.stringify(newWeek));
     }
 
-    function addItemToWeek(event) {
-        let newWeek = {...week};
-        if (newWeek.items === undefined) newWeek = {date: props.weekBeginning, items: []};
-        newWeek.items.push([event.target.value, [-1, -1, -1, -1, -1, -1, -1]]);
-        saveItem(newWeek);
-        editWeek({...newWeek});
-    }
-
     function addAllItemsToWeek() {
         let ids = [];
         let newWeek = {...week};
         unselected.forEach(item => ids.push(item.id));
         if (newWeek.items === undefined) newWeek = {date: props.weekBeginning, items: []};
         ids.forEach(id => newWeek.items.push([id, [-1, -1, -1, -1, -1, -1, -1]]));
+        saveItem(newWeek);
+        editWeek({...newWeek});
+    }
+
+    function addItemToWeek(event) {
+        let newWeek = {...week};
+        if (newWeek.items === undefined) newWeek = {date: props.weekBeginning, items: []};
+        newWeek.items.push([event.target.value, [-1, -1, -1, -1, -1, -1, -1]]);
         saveItem(newWeek);
         editWeek({...newWeek});
     }
@@ -164,7 +166,7 @@ export default function ArrangeWeek(props) {
                                 {editingDay === (day + props.weekBeginning) &&
                                     <Modal
                                         name={'day'}
-                                        onSwitchEditing={switchEditingDay}
+                                        onToggleModal={switchEditingDay}
                                         modal={
                                             <DayModal
                                                 key={day + props.weekBeginning + 'dayView'}
@@ -174,7 +176,7 @@ export default function ArrangeWeek(props) {
                                                 isThisWeek={props.isThisWeek}
                                                 weekBeginning={props.weekBeginning}
                                                 selected={selected}
-                                                onSwitchEditing={switchEditingDay}
+                                                onToggleModal={switchEditingDay}
                                             />
                                         }
                                     />
@@ -212,24 +214,26 @@ export default function ArrangeWeek(props) {
             {unselected.length > 0 &&
                 <div className='edit-box'>
                     <button
-                        className='add-all-items'
-                        onClick={addAllItemsToWeek}
+                        className='add-items'
+                        onClick={() => switchAddingItems(true)}
                     >
-                        add all items
+                        add items
                     </button>
-                    <div className='items-list'>
-                        {unselected.map(item =>
-                            <button
-                                key={item.id + props.weekBeginning + 'u'}
-                                value={item.id}
-                                data-week={props.weekBeginning}
-                                className={'items-list-item ' + item.color}
-                                onClick={addItemToWeek}
-                            >
-                                {item.text}
-                            </button>
-                        )}
-                    </div>
+                    { addingItems &&
+                        <Modal
+                            name={'add-items'}
+                            onToggleModal={switchAddingItems}
+                            modal={
+                                <AddItems
+                                    key={props.weekBeginning + 'addItems'}
+                                    unselected={unselected}
+                                    onAddAllItemsToWeek={addAllItemsToWeek}
+                                    onAddItemToWeek={addItemToWeek}
+                                    onToggleModal={switchAddingItems}
+                                />
+                            }
+                        />
+                    }
                 </div>
             }
         </div>
