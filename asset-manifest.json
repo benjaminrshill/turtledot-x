@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/turtledot-x/static/css/main.9ffbed57.chunk.css",
-    "main.js": "/turtledot-x/static/js/main.eb0fc325.chunk.js",
-    "main.js.map": "/turtledot-x/static/js/main.eb0fc325.chunk.js.map",
+    "main.css": "/turtledot-x/static/css/main.555f5106.chunk.css",
+    "main.js": "/turtledot-x/static/js/main.b07f183c.chunk.js",
+    "main.js.map": "/turtledot-x/static/js/main.b07f183c.chunk.js.map",
     "runtime-main.js": "/turtledot-x/static/js/runtime-main.279180d3.js",
     "runtime-main.js.map": "/turtledot-x/static/js/runtime-main.279180d3.js.map",
-    "static/js/2.e831fcbf.chunk.js": "/turtledot-x/static/js/2.e831fcbf.chunk.js",
-    "static/js/2.e831fcbf.chunk.js.map": "/turtledot-x/static/js/2.e831fcbf.chunk.js.map",
+    "static/js/2.316f047b.chunk.js": "/turtledot-x/static/js/2.316f047b.chunk.js",
+    "static/js/2.316f047b.chunk.js.map": "/turtledot-x/static/js/2.316f047b.chunk.js.map",
     "index.html": "/turtledot-x/index.html",
     "service-worker.js": "/turtledot-x/service-worker.js",
     "service-worker.js.map": "/turtledot-x/service-worker.js.map",
-    "static/css/main.9ffbed57.chunk.css.map": "/turtledot-x/static/css/main.9ffbed57.chunk.css.map",
-    "static/js/2.e831fcbf.chunk.js.LICENSE.txt": "/turtledot-x/static/js/2.e831fcbf.chunk.js.LICENSE.txt",
+    "static/css/main.555f5106.chunk.css.map": "/turtledot-x/static/css/main.555f5106.chunk.css.map",
+    "static/js/2.316f047b.chunk.js.LICENSE.txt": "/turtledot-x/static/js/2.316f047b.chunk.js.LICENSE.txt",
     "static/media/row.css": "/turtledot-x/static/media/arrowUp.d1f00b13.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.279180d3.js",
-    "static/js/2.e831fcbf.chunk.js",
-    "static/css/main.9ffbed57.chunk.css",
-    "static/js/main.eb0fc325.chunk.js"
+    "static/js/2.316f047b.chunk.js",
+    "static/css/main.555f5106.chunk.css",
+    "static/js/main.b07f183c.chunk.js"
   ]
 }
